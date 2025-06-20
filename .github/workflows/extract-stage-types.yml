@@ -60,6 +60,8 @@ jobs:
     
     - name: Extract stage types
       if: steps.check_data.outputs.data_exists == 'true'
+      env:
+        GAS_WEBHOOK_URL: ${{ secrets.GAS_WEBHOOK_URL }}
       run: |
         cd scripts
         echo "🔍 Starting stage types analysis..."
