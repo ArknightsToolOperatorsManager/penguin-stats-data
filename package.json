@@ -1,0 +1,33 @@
+
+{
+  "name": "penguin-stats-data",
+  "version": "1.0.0",
+  "description": "Daily collection of Arknights drop statistics from Penguin Statistics API",
+  "main": "scripts/fetch-penguin-stats.js",
+  "scripts": {
+    "fetch": "node scripts/fetch-penguin-stats.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArknightsToolOperatorsManager/penguin-stats-data.git"
+  },
+  "keywords": [
+    "arknights",
+    "penguin-statistics",
+    "game-data",
+    "drop-rates",
+    "statistics"
+  ],
+  "author": "アークナイツツールマン <an.manager.tool@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArknightsToolOperatorsManager/penguin-stats-data/issues"
+  },
+  "homepage": "https://github.com/ArknightsToolOperatorsManager/penguin-stats-data#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

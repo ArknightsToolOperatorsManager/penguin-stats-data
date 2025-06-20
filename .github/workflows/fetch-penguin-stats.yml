@@ -1,0 +1,41 @@
+name: Fetch Penguin Statistics Daily
+
+on:
+  schedule:
+    # 毎日 UTC 0:00 に実行
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 手動実行も可能
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Fetch Penguin Statistics Data
+      run: |
+        # データ取得スクリプトの実行
+        node fetch-penguin-stats.js
+        
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "an.manager.tool@gmail.com"
+        git config --local user.name "ArknightsTool-MAN"
+        git add data/
+        
+        # 変更がある場合のみコミット
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Update penguin stats data - $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
