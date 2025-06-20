@@ -1,0 +1,150 @@
+name: Extract Stage Types Analysis
+
+on:
+  # データ取得完了後に自動実行
+  workflow_run:
+    workflows: ["Fetch Penguin Statistics Daily"]
+    types:
+      - completed
+    branches: [main]
+  
+  # 手動実行も可能
+  workflow_dispatch:
+    inputs:
+      force_analysis:
+        description: 'Force analysis even if no new data'
+        required: false
+        default: 'false'
+        type: boolean
+
+# 同じワークフローが重複実行されないように制御
+concurrency:
+  group: stage-types-analysis
+  cancel-in-progress: true
+
+jobs:
+  extract-stage-types:
+    # データ取得ワークフローが成功した場合のみ実行
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # データ取得ワークフローの最新結果を取得
+        ref: ${{ github.event.workflow_run.head_branch || github.ref }}
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        cd scripts
+        npm install node-fetch
+    
+    - name: Check if latest data exists
+      id: check_data
+      run: |
+        if [ -f "data/latest.json" ]; then
+          echo "data_exists=true" >> $GITHUB_OUTPUT
+          echo "✅ Latest data file found"
+        else
+          echo "data_exists=false" >> $GITHUB_OUTPUT
+          echo "❌ Latest data file not found"
+        fi
+    
+    - name: Extract stage types
+      if: steps.check_data.outputs.data_exists == 'true'
+      run: |
+        cd scripts
+        echo "🔍 Starting stage types analysis..."
+        node extract-stage-types.js
+    
+    - name: Check for new stage types
+      id: check_new_types
+      if: steps.check_data.outputs.data_exists == 'true'
+      run: |
+        if [ -f "data/latest-new-stage-types.json" ]; then
+          NEW_COUNT=$(jq length data/latest-new-stage-types.json)
+          echo "new_types_count=$NEW_COUNT" >> $GITHUB_OUTPUT
+          echo "has_new_types=true" >> $GITHUB_OUTPUT
+          echo "📊 Found $NEW_COUNT new stage types"
+        else
+          echo "new_types_count=0" >> $GITHUB_OUTPUT
+          echo "has_new_types=false" >> $GITHUB_OUTPUT
+          echo "📊 No new stage types found"
+        fi
+    
+    - name: Commit new analysis results
+      if: steps.check_new_types.outputs.has_new_types == 'true'
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+        echo "=== Adding analysis files ==="
+        git add data/
+        
+        echo "=== Git status ==="
+        git status
+        
+        if git diff --staged --quiet; then
+          echo "📝 No changes to commit"
+        else
+          echo "✅ Committing stage types analysis results..."
+          git commit -m "Add stage types analysis - found ${{ steps.check_new_types.outputs.new_types_count }} new types - $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
+        fi
+    
+    - name: Create issue for new stage types
+      if: steps.check_new_types.outputs.has_new_types == 'true' && steps.check_new_types.outputs.new_types_count > 0
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          
+          try {
+            const newTypes = JSON.parse(fs.readFileSync('data/latest-new-stage-types.json', 'utf8'));
+            
+            let issueBody = `## 🆕 新しいステージタイプが発見されました\n\n`;
+            issueBody += `**発見数**: ${newTypes.length}個\n\n`;
+            issueBody += `### 🔍 新しいステージタイプ一覧\n\n`;
+            
+            newTypes.forEach((type, index) => {
+              issueBody += `#### ${index + 1}. \`${type.stageType}\`\n`;
+              issueBody += `- **出現ステージ数**: ${type.count}\n`;
+              issueBody += `- **信頼度**: ${type.avgConfidence}\n`;
+              issueBody += `- **例**: ${type.examples}\n\n`;
+            });
+            
+            issueBody += `### 📝 作業が必要\n\n`;
+            issueBody += `以下のGoogle Spreadsheetに日本語名を追加してください:\n`;
+            issueBody += `https://docs.google.com/spreadsheets/d/1ZJ85ZwS1fJFwZ9KZp0YCNzsRRMXx1vMiEaOfr-lYTw8/edit#gid=0\n\n`;
+            issueBody += `### 📄 生成ファイル\n`;
+            issueBody += `- \`data/latest-new-stage-types.json\` - 詳細データ\n`;
+            issueBody += `- \`data/latest-new-stage-types.csv\` - CSV形式（確認用）\n\n`;
+            issueBody += `---\n*このIssueは自動生成されました*`;
+            
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🆕 新しいステージタイプ発見 (${newTypes.length}個) - ${new Date().toISOString().split('T')[0]}`,
+              body: issueBody,
+              labels: ['stage-types', 'auto-generated', 'needs-manual-work']
+            });
+            
+            console.log(`📋 Issue created: ${issue.data.html_url}`);
+          } catch (error) {
+            console.error('❌ Error creating issue:', error);
+          }
+    
+    - name: Summary
+      run: |
+        echo "🏁 Stage types analysis completed!"
+        echo "📊 Data processed: ${{ steps.check_data.outputs.data_exists }}"
+        echo "🆕 New types found: ${{ steps.check_new_types.outputs.has_new_types }}"
+        echo "📈 New types count: ${{ steps.check_new_types.outputs.new_types_count }}"
