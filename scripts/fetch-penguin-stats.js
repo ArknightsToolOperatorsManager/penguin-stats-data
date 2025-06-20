@@ -1,3 +1,4 @@
+// fetch-penguin-stats.js
 const fs = require('fs');
 const path = require('path');
 
@@ -84,14 +85,7 @@ function processMatrixData(matrixData) {
   }
   
   return matrixData.matrix.map(item => ({
-    stageId: item.stageId,
-    stageName: item.stageName || 'Unknown',  // ステージ名を追加
-    stageType: item.stageType || 'UNKNOWN',
-    apCost: item.apCost || 0,
-    itemId: item.itemId,
-    itemName: item.itemName || 'Unknown',
-    times: item.times,
-    quantity: item.quantity,
+    ...item,
     dropRate: item.times > 0 ? item.quantity / item.times : 0,
     dropPercentage: item.times > 0 ? (item.quantity / item.times * 100).toFixed(2) : 0,
     fetchedAt: new Date().toISOString()
