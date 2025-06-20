@@ -21,23 +21,55 @@ jobs:
         
     - name: Install dependencies
       run: npm install
+      
+    - name: Create data directory
+      run: mkdir -p data
         
     - name: Fetch Penguin Statistics Data
       run: |
         # データ取得スクリプトの実行
         node scripts/fetch-penguin-stats.js
         
+    - name: Debug - List created files
+      run: |
+        echo "=== Current directory ==="
+        pwd
+        echo "=== Contents of data directory ==="
+        ls -la data/ || echo "data directory not found"
+        echo "=== Git status ==="
+        git status
+        
     - name: Commit and push changes
       run: |
         git config --local user.email "an.manager.tool@gmail.com"
         git config --local user.name "ArknightsTool-MAN"
+        
+        echo "=== Current directory ==="
+        pwd
+        echo "=== Contents of data directory ==="
+        ls -la data/ || echo "data directory not found"
+        echo "=== Git status before add ==="
+        git status
+        
+        echo "=== Adding files ==="
         git add data/
+        git add -A
+        
+        echo "=== Git status after add ==="
+        git status
+        
+        echo "=== Git diff --staged ==="
+        git diff --staged --name-only
         
         # 変更がある場合のみコミット
         if git diff --staged --quiet; then
-          echo "No changes to commit"
+          echo "❌ No changes to commit"
+          echo "=== Checking if files exist ==="
+          find data/ -name "*.json" -type f
         else
+          echo "✅ Changes detected, committing..."
           git commit -m "Update penguin stats data - $(date +'%Y-%m-%d %H:%M:%S')"
+          echo "=== Pushing changes ==="
           git push
         fi
       env:
