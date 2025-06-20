@@ -2,6 +2,14 @@
 const fs = require('fs');
 const path = require('path');
 
+// Node.js 18でfetchが利用できない場合のpolyfill
+let fetch;
+if (typeof globalThis.fetch === 'undefined') {
+  fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+} else {
+  fetch = globalThis.fetch;
+}
+
 // APIエンドポイント
 const API_BASE = 'https://penguin-stats.io/PenguinStats/api/v2';
 const SERVERS = ['CN', 'US', 'JP', 'KR'];

@@ -19,10 +19,13 @@ jobs:
       with:
         node-version: '18'
         
+    - name: Install dependencies
+      run: npm install
+        
     - name: Fetch Penguin Statistics Data
       run: |
         # データ取得スクリプトの実行
-        node fetch-penguin-stats.js
+        node scripts/fetch-penguin-stats.js
         
     - name: Commit and push changes
       run: |
