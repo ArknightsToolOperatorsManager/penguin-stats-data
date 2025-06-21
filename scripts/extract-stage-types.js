@@ -54,6 +54,49 @@ async function getExistingStageTypes() {
   }
 }
 
+// GASにデータを送信してスプレッドシートに追加
+async function sendToGoogleSpreadsheet(newTypes) {
+  // GAS WebアプリのURL（環境変数または設定から取得）
+  const GAS_WEBHOOK_URL = process.env.GAS_WEBHOOK_URL;
+  
+  if (!GAS_WEBHOOK_URL) {
+    throw new Error('GAS_WEBHOOK_URL environment variable not set');
+  }
+  
+  console.log('🔗 Calling Google Apps Script webhook...');
+  
+  // GASに送信するデータを整形
+  const payload = {
+    timestamp: new Date().toISOString(),
+    newTypes: newTypes.map(type => ({
+      stageType: type.stageType,
+      count: type.count,
+      confidence: type.avgConfidence,
+      examples: type.examples,
+      japaneseName: '', // 空欄
+      notes: ''        // 空欄
+    }))
+  };
+  
+  const response = await fetch(GAS_WEBHOOK_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload)
+  });
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`GAS webhook failed: ${response.status} - ${errorText}`);
+  }
+  
+  const result = await response.text();
+  console.log(`📤 GAS response: ${result}`);
+  
+  return result;
+}
+
 // 動的にステージタイプを抽出する関数
 function extractStageType(stageId) {
   if (!stageId || typeof stageId !== 'string') {
@@ -333,8 +376,15 @@ async function extractStageTypesFromLatest() {
         console.log(`   Examples: ${result.examples}`);
       });
       
-      console.log(`\n📝 Please add these new stage types to the Google Spreadsheet:`);
-      console.log(`   ${SPREADSHEET_URL.replace('/gviz/tq?tqx=out:csv&sheet=', '/edit#gid=')}`);
+      console.log(`\n📝 Sending new stage types to Google Spreadsheet...`);
+      try {
+        await sendToGoogleSpreadsheet(newResults);
+        console.log(`✅ Successfully sent ${newResults.length} new stage types to spreadsheet`);
+      } catch (error) {
+        console.error(`❌ Failed to send to spreadsheet:`, error.message);
+        console.log(`📋 Please manually add these types to the spreadsheet:`);
+        console.log(`   https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/edit#gid=0`);
+      }
     } else {
       console.log(`\n✅ No new stage types found. All types are already in the spreadsheet.`);
     }
@@ -360,5 +410,6 @@ if (require.main === module) {
 module.exports = {
   extractStageType,
   extractStageTypesFromLatest,
-  calculateConfidence
+  calculateConfidence,
+  sendToGoogleSpreadsheet
 };
