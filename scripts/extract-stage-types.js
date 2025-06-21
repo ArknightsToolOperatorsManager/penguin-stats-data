@@ -156,13 +156,20 @@ function extractStageType(stageId) {
       return parts.join('_');
     },
     
-    // アプローチ5: a001のような英字+数字パターンを保持
+    // アプローチ5: a001のような英字+数字パターン、およびact13sideのような英字+数字+英字パターンを保持
     (id) => {
-      // a001_01 → a001 のように、英字+数字部分を保持
-      const match = id.match(/^([a-z]+\d+)/);
-      if (match) {
-        return match[1];
+      // act13side_08_rep → act13side のように、英字+数字+英字部分を保持
+      const actMatch = id.match(/^(act\d+[a-z]+)/);
+      if (actMatch) {
+        return actMatch[1];
       }
+      
+      // a001_01 → a001 のように、英字+数字部分を保持
+      const alphaNumMatch = id.match(/^([a-z]+\d+)(?![a-z])/);
+      if (alphaNumMatch) {
+        return alphaNumMatch[1];
+      }
+      
       // 通常のパターン処理にフォールバック
       return id.replace(/[-_]\d+[-_]?\d*[-_]?[a-z]*\d*$/, '');
     }
@@ -189,11 +196,18 @@ function extractStageType(stageId) {
   }
   
   // 最も短くて意味のありそうな結果を選択（通常は最も抽象的なタイプ）
-  // ただし、英字+数字パターン（a001など）は優先する
+  // ただし、英字+数字パターン（a001など）やact+数字+英字パターン（act13sideなど）は優先する
   return validResults.reduce((best, current) => {
-    // 英字+数字パターンを優先
-    const bestIsAlphaNum = /^[a-z]+\d+$/.test(best);
-    const currentIsAlphaNum = /^[a-z]+\d+$/.test(current);
+    // act+数字+英字パターン（act13side、act13dなど）を最優先
+    const bestIsActPattern = /^act\d+[a-z]+$/.test(best);
+    const currentIsActPattern = /^act\d+[a-z]+$/.test(current);
+    
+    if (currentIsActPattern && !bestIsActPattern) return current;
+    if (bestIsActPattern && !currentIsActPattern) return best;
+    
+    // 英字+数字パターンを次に優先
+    const bestIsAlphaNum = /^[a-z]+\d+$/.test(best) && !bestIsActPattern;
+    const currentIsAlphaNum = /^[a-z]+\d+$/.test(current) && !currentIsActPattern;
     
     if (currentIsAlphaNum && !bestIsAlphaNum) return current;
     if (bestIsAlphaNum && !currentIsAlphaNum) return best;
@@ -253,9 +267,11 @@ function calculateConfidence(stageId, extractedType) {
     confidence += 0.3;
   }
   
-  // 英字+数字パターン（a001など）の信頼度向上
-  if (/^[a-z]+\d+$/.test(extractedType)) {
-    confidence += 0.3;
+  // 英字+数字パターン（a001など）やact+数字+英字パターン（act13sideなど）の信頼度向上
+  if (/^act\d+[a-z]+$/.test(extractedType)) {
+    confidence += 0.4; // act13side、act13d などは高信頼度
+  } else if (/^[a-z]+\d+$/.test(extractedType)) {
+    confidence += 0.3; // a001 などは中程度の信頼度向上
   }
   
   // 元のIDとの差による信頼度調整
@@ -295,7 +311,7 @@ async function extractStageTypesFromLatest() {
     const stageConfidence = new Map();
     
     // 除外するstageIdのパターン
-    const excludePatterns = ['randommaterial' ,'gachabox' ,'recruit'];
+    const excludePatterns = ['randommaterial'];
     
     // 全サーバーのデータを処理
     Object.entries(latestData.serverData).forEach(([server, serverData]) => {
