@@ -154,6 +154,17 @@ function extractStageType(stageId) {
         parts.pop();
       }
       return parts.join('_');
+    },
+    
+    // アプローチ5: a001のような英字+数字パターンを保持
+    (id) => {
+      // a001_01 → a001 のように、英字+数字部分を保持
+      const match = id.match(/^([a-z]+\d+)/);
+      if (match) {
+        return match[1];
+      }
+      // 通常のパターン処理にフォールバック
+      return id.replace(/[-_]\d+[-_]?\d*[-_]?[a-z]*\d*$/, '');
     }
   ];
   
@@ -178,7 +189,16 @@ function extractStageType(stageId) {
   }
   
   // 最も短くて意味のありそうな結果を選択（通常は最も抽象的なタイプ）
+  // ただし、英字+数字パターン（a001など）は優先する
   return validResults.reduce((best, current) => {
+    // 英字+数字パターンを優先
+    const bestIsAlphaNum = /^[a-z]+\d+$/.test(best);
+    const currentIsAlphaNum = /^[a-z]+\d+$/.test(current);
+    
+    if (currentIsAlphaNum && !bestIsAlphaNum) return current;
+    if (bestIsAlphaNum && !currentIsAlphaNum) return best;
+    
+    // 同じタイプの場合は短い方を選択
     if (current.length < best.length) return current;
     if (current.length === best.length && current < best) return current;
     return best;
@@ -230,6 +250,11 @@ function calculateConfidence(stageId, extractedType) {
   // 既知のパターンによる信頼度調整
   const knownPatterns = ['main', 'tough', 'sub', 'act', 'wk', 'event', 'side'];
   if (knownPatterns.some(pattern => extractedType.includes(pattern))) {
+    confidence += 0.3;
+  }
+  
+  // 英字+数字パターン（a001など）の信頼度向上
+  if (/^[a-z]+\d+$/.test(extractedType)) {
     confidence += 0.3;
   }
   
