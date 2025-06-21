@@ -242,25 +242,6 @@ function extractStageType(stageId) {
     if (current.length < best.length) return current;
     if (current.length === best.length && current < best) return current;
     return best;
-  });.reduce((best, current) => {
-    // act+数字+英字パターン（act13side、act13dなど）を最優先
-    const bestIsActPattern = /^act\d+[a-z]+$/.test(best);
-    const currentIsActPattern = /^act\d+[a-z]+$/.test(current);
-    
-    if (currentIsActPattern && !bestIsActPattern) return current;
-    if (bestIsActPattern && !currentIsActPattern) return best;
-    
-    // 英字+数字パターンを次に優先
-    const bestIsAlphaNum = /^[a-z]+\d+$/.test(best) && !bestIsActPattern;
-    const currentIsAlphaNum = /^[a-z]+\d+$/.test(current) && !currentIsActPattern;
-    
-    if (currentIsAlphaNum && !bestIsAlphaNum) return current;
-    if (bestIsAlphaNum && !currentIsAlphaNum) return best;
-    
-    // 同じタイプの場合は短い方を選択
-    if (current.length < best.length) return current;
-    if (current.length === best.length && current < best) return current;
-    return best;
   });
 }
 
