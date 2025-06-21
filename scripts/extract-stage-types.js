@@ -273,11 +273,12 @@ async function extractStageTypesFromLatest() {
     Object.entries(latestData.serverData).forEach(([server, serverData]) => {
       if (!serverData.data) return;
       
-      serverData.data.forEach(item => {
-        if (!item.stageId) return;
+      // 新しいデータ構造: serverData.data はstageId別のオブジェクト
+      Object.entries(serverData.data).forEach(([stageId, stageData]) => {
+        if (!stageId) return;
         
-        const extractedType = extractStageType(item.stageId);
-        const confidence = calculateConfidence(item.stageId, extractedType);
+        const extractedType = extractStageType(stageId);
+        const confidence = calculateConfidence(stageId, extractedType);
         
         // マップに追加
         if (!stageTypeMap.has(extractedType)) {
@@ -286,13 +287,13 @@ async function extractStageTypesFromLatest() {
           stageConfidence.set(extractedType, []);
         }
         
-        stageTypeMap.get(extractedType).add(item.stageId);
+        stageTypeMap.get(extractedType).add(stageId);
         stageConfidence.get(extractedType).push(confidence);
         
         // 例を追加（最大5つ）
         const examples = stageExamples.get(extractedType);
-        if (examples.length < 5 && !examples.includes(item.stageId)) {
-          examples.push(item.stageId);
+        if (examples.length < 5 && !examples.includes(stageId)) {
+          examples.push(stageId);
         }
       });
     });

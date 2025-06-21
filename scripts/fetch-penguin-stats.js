@@ -78,18 +78,51 @@ async function fetchMatrixData(server) {
   }
 }
 
-// データを処理してドロップ確率を計算
+// データを処理してstageId毎にグループ化
 function processMatrixData(matrixData) {
   if (!matrixData || !matrixData.matrix) {
     return null;
   }
   
-  return matrixData.matrix.map(item => ({
-    ...item,
-    dropRate: item.times > 0 ? item.quantity / item.times : 0,
-    dropPercentage: item.times > 0 ? (item.quantity / item.times * 100).toFixed(2) : 0,
-    fetchedAt: new Date().toISOString()
-  }));
+  const fetchedAt = new Date().toISOString();
+  const groupedData = {};
+  let totalItemCount = 0;
+  
+  // stageId毎にデータをグループ化
+  matrixData.matrix.forEach(item => {
+    const stageId = item.stageId;
+    const itemId = item.itemId;
+    
+    // ステージが存在しない場合は初期化
+    if (!groupedData[stageId]) {
+      groupedData[stageId] = {
+        stageInfo: {
+          times: item.times,
+          start: item.start,
+          end: item.end,
+          fetchedAt: fetchedAt
+        },
+        items: {}
+      };
+    }
+    
+    // アイテムデータを追加
+    groupedData[stageId].items[itemId] = {
+      quantity: item.quantity,
+      stdDev: item.stdDev,
+      dropRate: item.times > 0 ? item.quantity / item.times : 0,
+      dropPercentage: item.times > 0 ? (item.quantity / item.times * 100).toFixed(2) : "0.00"
+    };
+    
+    totalItemCount++;
+  });
+  
+  return {
+    data: groupedData,
+    stageCount: Object.keys(groupedData).length,
+    itemCount: totalItemCount,
+    fetchedAt: fetchedAt
+  };
 }
 
 // メイン処理
@@ -114,18 +147,23 @@ async function main() {
     const rawData = await fetchMatrixData(server);
     if (rawData) {
       const processedData = processMatrixData(rawData);
-      results[server] = {
-        fetchedAt: new Date().toISOString(),
-        dataCount: processedData ? processedData.length : 0,
-        data: processedData
-      };
-      
-      // サーバー別ファイルとして今日のフォルダに保存
-      const filename = `penguin-stats-${server.toLowerCase()}.json`;
-      const filepath = path.join(todayDir, filename);
-      fs.writeFileSync(filepath, JSON.stringify(results[server], null, 2));
-      
-      console.log(`Saved ${results[server].dataCount} records for ${server} to ${timestamp}/${filename}`);
+      if (processedData) {
+        results[server] = {
+          fetchedAt: processedData.fetchedAt,
+          dataCount: processedData.itemCount,
+          stageCount: processedData.stageCount,
+          data: processedData.data
+        };
+        
+        // サーバー別ファイルとして今日のフォルダに保存
+        const filename = `penguin-stats-${server.toLowerCase()}.json`;
+        const filepath = path.join(todayDir, filename);
+        fs.writeFileSync(filepath, JSON.stringify(results[server], null, 2));
+        
+        console.log(`Saved ${results[server].stageCount} stages (${results[server].dataCount} items) for ${server} to ${timestamp}/${filename}`);
+      } else {
+        console.error(`Failed to process data for ${server}`);
+      }
     } else {
       console.error(`Failed to fetch data for ${server}`);
     }
@@ -140,6 +178,7 @@ async function main() {
     date: timestamp,
     fetchedAt: new Date().toISOString(),
     servers: Object.keys(results),
+    totalStages: Object.values(results).reduce((sum, server) => sum + (server.stageCount || 0), 0),
     totalRecords: Object.values(results).reduce((sum, server) => sum + (server.dataCount || 0), 0),
     serverData: results
   };
@@ -157,6 +196,8 @@ async function main() {
   
   console.log('Data fetch completed successfully!');
   console.log(`Total files in today's folder: ${Object.keys(results).length + 1} (${Object.keys(results).length} server files + 1 summary)`);
+  console.log(`Total stages across all servers: ${summary.totalStages}`);
+  console.log(`Total item records across all servers: ${summary.totalRecords}`);
 }
 
 // エラーハンドリング付きで実行
