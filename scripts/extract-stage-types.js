@@ -156,7 +156,7 @@ function extractStageType(stageId) {
       return parts.join('_');
     },
     
-    // アプローチ5: a001のような英字+数字パターン、およびact13sideのような英字+数字+英字パターンを保持
+    // アプローチ5: 特定パターンを保持
     (id) => {
       // act13side_08_rep → act13side のように、英字+数字+英字部分を保持
       const actMatch = id.match(/^(act\d+[a-z]+)/);
@@ -164,10 +164,22 @@ function extractStageType(stageId) {
         return actMatch[1];
       }
       
-      // a001_01 → a001 のように、英字+数字部分を保持
+      // sub_02-05 → sub_02 のように、基本パターン+アンダースコア+数字を保持
+      const subMatch = id.match(/^((?:main|tough|sub)_\d+)/);
+      if (subMatch) {
+        return subMatch[1];
+      }
+      
+      // a001_01 → a001 のように、英字+数字部分を保持（actパターン以外）
       const alphaNumMatch = id.match(/^([a-z]+\d+)(?![a-z])/);
       if (alphaNumMatch) {
         return alphaNumMatch[1];
+      }
+      
+      // wk_melee_4 → wk_melee のように、wk_+英字部分を保持
+      const wkMatch = id.match(/^(wk_[a-z]+)/);
+      if (wkMatch) {
+        return wkMatch[1];
       }
       
       // 通常のパターン処理にフォールバック
@@ -195,9 +207,42 @@ function extractStageType(stageId) {
     return extractFallbackPattern(cleanId);
   }
   
-  // 最も短くて意味のありそうな結果を選択（通常は最も抽象的なタイプ）
-  // ただし、英字+数字パターン（a001など）やact+数字+英字パターン（act13sideなど）は優先する
+  // 最も短くて意味のありそうな結果を選択
+  // 優先順位: 1. act+数字+英字 2. basic_数字パターン 3. wk_英字パターン 4. 英字+数字 5. その他
   return validResults.reduce((best, current) => {
+    // act+数字+英字パターン（act13side、act13dなど）を最優先
+    const bestIsActPattern = /^act\d+[a-z]+$/.test(best);
+    const currentIsActPattern = /^act\d+[a-z]+$/.test(current);
+    
+    if (currentIsActPattern && !bestIsActPattern) return current;
+    if (bestIsActPattern && !currentIsActPattern) return best;
+    
+    // basic_数字パターン（main_XX、tough_XX、sub_XXなど）を次に優先
+    const bestIsBasicNum = /^(?:main|tough|sub)_\d+$/.test(best);
+    const currentIsBasicNum = /^(?:main|tough|sub)_\d+$/.test(current);
+    
+    if (currentIsBasicNum && !bestIsBasicNum && !bestIsActPattern) return current;
+    if (bestIsBasicNum && !currentIsBasicNum && !currentIsActPattern) return best;
+    
+    // wk_英字パターン（wk_melee、wk_toxicなど）を次に優先
+    const bestIsWkPattern = /^wk_[a-z]+$/.test(best);
+    const currentIsWkPattern = /^wk_[a-z]+$/.test(current);
+    
+    if (currentIsWkPattern && !bestIsWkPattern && !bestIsActPattern && !bestIsBasicNum) return current;
+    if (bestIsWkPattern && !currentIsWkPattern && !currentIsActPattern && !currentIsBasicNum) return best;
+    
+    // 英字+数字パターンを次に優先
+    const bestIsAlphaNum = /^[a-z]+\d+$/.test(best) && !bestIsActPattern && !bestIsBasicNum && !bestIsWkPattern;
+    const currentIsAlphaNum = /^[a-z]+\d+$/.test(current) && !currentIsActPattern && !currentIsBasicNum && !currentIsWkPattern;
+    
+    if (currentIsAlphaNum && !bestIsAlphaNum) return current;
+    if (bestIsAlphaNum && !currentIsAlphaNum) return best;
+    
+    // 同じタイプの場合は短い方を選択
+    if (current.length < best.length) return current;
+    if (current.length === best.length && current < best) return current;
+    return best;
+  });.reduce((best, current) => {
     // act+数字+英字パターン（act13side、act13dなど）を最優先
     const bestIsActPattern = /^act\d+[a-z]+$/.test(best);
     const currentIsActPattern = /^act\d+[a-z]+$/.test(current);
@@ -267,9 +312,13 @@ function calculateConfidence(stageId, extractedType) {
     confidence += 0.3;
   }
   
-  // 英字+数字パターン（a001など）やact+数字+英字パターン（act13sideなど）の信頼度向上
+  // 特定パターンの信頼度向上
   if (/^act\d+[a-z]+$/.test(extractedType)) {
     confidence += 0.4; // act13side、act13d などは高信頼度
+  } else if (/^(?:main|tough|sub)_\d+$/.test(extractedType)) {
+    confidence += 0.4; // main_XX、tough_XX、sub_XX などは高信頼度
+  } else if (/^wk_[a-z]+$/.test(extractedType)) {
+    confidence += 0.4; // wk_melee、wk_toxic などは高信頼度
   } else if (/^[a-z]+\d+$/.test(extractedType)) {
     confidence += 0.3; // a001 などは中程度の信頼度向上
   }
