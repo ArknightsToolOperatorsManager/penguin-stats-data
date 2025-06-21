@@ -311,7 +311,7 @@ async function extractStageTypesFromLatest() {
     const stageConfidence = new Map();
     
     // 除外するstageIdのパターン
-    const excludePatterns = ['randommaterial'];
+    const excludePatterns = ['randommaterial' ,'gacha' ,'recruit'];
     
     // 全サーバーのデータを処理
     Object.entries(latestData.serverData).forEach(([server, serverData]) => {
