@@ -88,10 +88,18 @@ function processMatrixData(matrixData) {
   const groupedData = {};
   let totalItemCount = 0;
   
+  // 除外するstageIdのパターン
+  const excludePatterns = ['randommaterial','gachabox' ,'recruit'];
+  
   // stageId毎にデータをグループ化
   matrixData.matrix.forEach(item => {
     const stageId = item.stageId;
     const itemId = item.itemId;
+    
+    // 除外パターンにマッチするstageIdを無視
+    if (stageId && excludePatterns.some(pattern => stageId.toLowerCase().startsWith(pattern.toLowerCase()))) {
+      return;
+    }
     
     // ステージが存在しない場合は初期化
     if (!groupedData[stageId]) {

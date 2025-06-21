@@ -269,6 +269,9 @@ async function extractStageTypesFromLatest() {
     const stageExamples = new Map();
     const stageConfidence = new Map();
     
+    // 除外するstageIdのパターン
+    const excludePatterns = ['randommaterial' ,'gachabox' ,'recruit'];
+    
     // 全サーバーのデータを処理
     Object.entries(latestData.serverData).forEach(([server, serverData]) => {
       if (!serverData.data) return;
@@ -276,6 +279,11 @@ async function extractStageTypesFromLatest() {
       // 新しいデータ構造: serverData.data はstageId別のオブジェクト
       Object.entries(serverData.data).forEach(([stageId, stageData]) => {
         if (!stageId) return;
+        
+        // 除外パターンにマッチするstageIdを無視
+        if (excludePatterns.some(pattern => stageId.toLowerCase().startsWith(pattern.toLowerCase()))) {
+          return;
+        }
         
         const extractedType = extractStageType(stageId);
         const confidence = calculateConfidence(stageId, extractedType);
