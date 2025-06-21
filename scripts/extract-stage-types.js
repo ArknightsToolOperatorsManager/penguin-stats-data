@@ -128,66 +128,80 @@ function extractStageType(stageId) {
   // 基本的な前処理
   const cleanId = stageId.trim().toLowerCase();
   
-  // 複数のアプローチを組み合わせて動的判断
+  // シンプルな抽出アプローチ
   const extractors = [
-    // アプローチ1: 最後の数字・ハイフン・数字パターンを除去
+    // アプローチ1: 単語境界での分割と再構成
     (id) => {
-      const match = id.match(/^(.+?)(?:[-_]\d+(?:[-_]\d+)*(?:[-_][a-z]+\d*)?)?$/);
-      return match ? match[1] : id;
-    },
-    
-    // アプローチ2: 連続する数字の塊を除去
-    (id) => {
-      return id.replace(/[-_]\d+/g, '').replace(/\d+$/, '');
-    },
-    
-    // アプローチ3: 末尾の数字とハイフンパターンを除去
-    (id) => {
-      return id.replace(/[-_]?\d+[-_]?\d*[-_]?[a-z]*\d*$/, '');
-    },
-    
-    // アプローチ4: アンダースコア区切りで最後の数字含む部分を除去
-    (id) => {
-      const parts = id.split('_');
-      // 最後の部分が数字で始まる場合は除去
-      while (parts.length > 1 && /^\d/.test(parts[parts.length - 1])) {
-        parts.pop();
+      const parts = id.split(/[-_]/);
+      
+      // 最初の部分をベースとして、意味のある単位まで拡張
+      let result = parts[0];
+      
+      // 英字+数字+英字+数字パターン (act11d0)
+      const complexMatch = result.match(/^([a-z]+\d+[a-z]+\d+)/);
+      if (complexMatch) {
+        return complexMatch[1];
       }
-      return parts.join('_');
-    },
-    
-    // アプローチ5: 特定パターンを保持
-    (id) => {
-      // act13side_08_rep → act13side のように、英字+数字+英字部分を保持
-      const actMatch = id.match(/^(act\d+[a-z]+)/);
+      
+      // 英字+数字+英字パターン (act13side)
+      const actMatch = result.match(/^([a-z]+\d+[a-z]+)/);
       if (actMatch) {
         return actMatch[1];
       }
       
-      // sub_02-05 → sub_02 のように、基本パターン+アンダースコア+数字を保持
-      const subMatch = id.match(/^((?:main|tough|sub)_\d+)/);
-      if (subMatch) {
-        return subMatch[1];
+      // 基本パターン+次の数字部分を結合 (main_07)
+      if (parts.length >= 2 && /^[a-z]+$/.test(parts[0]) && /^\d+$/.test(parts[1])) {
+        return `${parts[0]}_${parts[1]}`;
       }
       
-      // a001_01 → a001 のように、英字+数字部分を保持（actパターン以外）
-      const alphaNumMatch = id.match(/^([a-z]+\d+)(?![a-z])/);
+      // 基本パターン+次の英字部分を結合 (wk_melee)
+      if (parts.length >= 2 && /^[a-z]+$/.test(parts[0]) && /^[a-z]+$/.test(parts[1])) {
+        return `${parts[0]}_${parts[1]}`;
+      }
+      
+      // 英字+数字パターン (a001)
+      const alphaNumMatch = result.match(/^([a-z]+\d+)/);
       if (alphaNumMatch) {
         return alphaNumMatch[1];
       }
       
-      // wk_melee_4 → wk_melee のように、wk_+英字部分を保持
-      const wkMatch = id.match(/^(wk_[a-z]+)/);
-      if (wkMatch) {
-        return wkMatch[1];
+      // 単純な英字のみの場合はそのまま
+      return result;
+    },
+    
+    // アプローチ2: 末尾から不要部分を除去
+    (id) => {
+      let result = id;
+      // 末尾の_rep, _perm等を除去
+      result = result.replace(/[-_](rep|perm)$/, '');
+      // 末尾の数字パターンを段階的に除去
+      result = result.replace(/[-_]\d+[-_]?\d*$/, '');
+      return result;
+    },
+    
+    // アプローチ3: 正規表現による直接抽出
+    (id) => {
+      const patterns = [
+        /^([a-z]+\d+[a-z]+\d+)/,    // 複雑パターン (act11d0)
+        /^([a-z]+\d+[a-z]+)/,       // 中間パターン (act13side)  
+        /^([a-z]+_\d+)/,            // 基本_数字 (main_07)
+        /^([a-z]+_[a-z]+)/,         // 基本_英字 (wk_melee)
+        /^([a-z]+\d+)/,             // 英字数字 (a001)
+        /^([a-z]+)/                 // 英字のみ
+      ];
+      
+      for (const pattern of patterns) {
+        const match = id.match(pattern);
+        if (match) {
+          return match[1];
+        }
       }
       
-      // 通常のパターン処理にフォールバック
-      return id.replace(/[-_]\d+[-_]?\d*[-_]?[a-z]*\d*$/, '');
+      return id.split(/[-_]/)[0];
     }
   ];
   
-  // 各抽出器を試して、最も適切な結果を選択
+  // 各抽出器を試して結果を収集
   const results = extractors.map(extractor => {
     try {
       return extractor(cleanId);
@@ -196,85 +210,53 @@ function extractStageType(stageId) {
     }
   }).filter(result => result && result.length > 0);
   
-  // 結果の検証と選択
+  // 有効な結果のフィルタリング
   const validResults = results.filter(result => {
-    // 空文字や元のIDと同じでないかチェック
     return result !== cleanId && result.length > 0 && result !== stageId.toLowerCase();
   });
   
   if (validResults.length === 0) {
-    // フォールバック: 手動パターン
-    return extractFallbackPattern(cleanId);
+    // フォールバック: 最初の単語部分を返す
+    return cleanId.split(/[-_]/)[0] || 'unknown';
   }
   
-  // 最も短くて意味のありそうな結果を選択
-  // 優先順位: 1. act+数字+英字 2. basic_数字パターン 3. wk_英字パターン 4. 英字+数字 5. その他
+  // 最適な結果を選択 (より具体的で意味のあるものを優先)
   return validResults.reduce((best, current) => {
-    // act+数字+英字パターン（act13side、act13dなど）を最優先
-    const bestIsActPattern = /^act\d+[a-z]+$/.test(best);
-    const currentIsActPattern = /^act\d+[a-z]+$/.test(current);
+    // より複雑なパターンを優先（情報量が多い）
+    const bestComplexity = getPatternComplexity(best);
+    const currentComplexity = getPatternComplexity(current);
     
-    if (currentIsActPattern && !bestIsActPattern) return current;
-    if (bestIsActPattern && !currentIsActPattern) return best;
+    if (currentComplexity > bestComplexity) return current;
+    if (bestComplexity > currentComplexity) return best;
     
-    // basic_数字パターン（main_XX、tough_XX、sub_XXなど）を次に優先
-    const bestIsBasicNum = /^(?:main|tough|sub)_\d+$/.test(best);
-    const currentIsBasicNum = /^(?:main|tough|sub)_\d+$/.test(current);
-    
-    if (currentIsBasicNum && !bestIsBasicNum && !bestIsActPattern) return current;
-    if (bestIsBasicNum && !currentIsBasicNum && !currentIsActPattern) return best;
-    
-    // wk_英字パターン（wk_melee、wk_toxicなど）を次に優先
-    const bestIsWkPattern = /^wk_[a-z]+$/.test(best);
-    const currentIsWkPattern = /^wk_[a-z]+$/.test(current);
-    
-    if (currentIsWkPattern && !bestIsWkPattern && !bestIsActPattern && !bestIsBasicNum) return current;
-    if (bestIsWkPattern && !currentIsWkPattern && !currentIsActPattern && !currentIsBasicNum) return best;
-    
-    // 英字+数字パターンを次に優先
-    const bestIsAlphaNum = /^[a-z]+\d+$/.test(best) && !bestIsActPattern && !bestIsBasicNum && !bestIsWkPattern;
-    const currentIsAlphaNum = /^[a-z]+\d+$/.test(current) && !currentIsActPattern && !currentIsBasicNum && !currentIsWkPattern;
-    
-    if (currentIsAlphaNum && !bestIsAlphaNum) return current;
-    if (bestIsAlphaNum && !currentIsAlphaNum) return best;
-    
-    // 同じタイプの場合は短い方を選択
-    if (current.length < best.length) return current;
+    // 同じ複雑度なら長い方を優先（より具体的）
+    if (current.length > best.length) return current;
     if (current.length === best.length && current < best) return current;
     return best;
   });
 }
 
-// フォールバックパターン抽出
+// パターンの複雑度を計算
+function getPatternComplexity(str) {
+  let complexity = 0;
+  
+  // 英字+数字+英字+数字パターン
+  if (/^[a-z]+\d+[a-z]+\d+$/.test(str)) complexity = 4;
+  // 英字+数字+英字パターン  
+  else if (/^[a-z]+\d+[a-z]+$/.test(str)) complexity = 3;
+  // 基本_数字 or 基本_英字パターン
+  else if (/^[a-z]+_[a-z0-9]+$/.test(str)) complexity = 2;
+  // 英字+数字パターン
+  else if (/^[a-z]+\d+$/.test(str)) complexity = 1;
+  // 英字のみ
+  else complexity = 0;
+  
+  return complexity;
+}
+
+// フォールバックパターン抽出（削除して非常にシンプルに）
 function extractFallbackPattern(stageId) {
-  // 特殊ケース用のパターン
-  const specialPatterns = [
-    // イベント系
-    { pattern: /^act\d+/, type: 'activity' },
-    { pattern: /^event/, type: 'event' },
-    { pattern: /side/, type: 'side_story' },
-    
-    // 定期系
-    { pattern: /^wk_/, type: 'weekly' },
-    { pattern: /^daily/, type: 'daily' },
-    
-    // メイン系
-    { pattern: /^main/, type: 'main' },
-    { pattern: /^tough/, type: 'tough' },
-    { pattern: /^sub/, type: 'sub' },
-    
-    // その他
-    { pattern: /^tutorial/, type: 'tutorial' },
-    { pattern: /^train/, type: 'training' },
-  ];
-  
-  for (const { pattern, type } of specialPatterns) {
-    if (pattern.test(stageId)) {
-      return type;
-    }
-  }
-  
-  // 最終フォールバック
+  // 最終フォールバック: 最初の単語部分を返すのみ
   return stageId.split(/[-_]/)[0] || 'unknown';
 }
 
@@ -282,34 +264,32 @@ function extractFallbackPattern(stageId) {
 function calculateConfidence(stageId, extractedType) {
   let confidence = 0.5; // ベースライン
   
+  // パターンの複雑度による信頼度調整
+  const complexity = getPatternComplexity(extractedType);
+  confidence += complexity * 0.1; // 複雑度 * 0.1
+  
   // 長さによる信頼度調整
   if (extractedType.length >= 3 && extractedType.length <= 15) {
     confidence += 0.2;
   }
   
-  // 既知のパターンによる信頼度調整
-  const knownPatterns = ['main', 'tough', 'sub', 'act', 'wk', 'event', 'side'];
-  if (knownPatterns.some(pattern => extractedType.includes(pattern))) {
-    confidence += 0.3;
+  // アンダースコアを含む場合（構造化された情報）
+  if (extractedType.includes('_')) {
+    confidence += 0.2;
   }
   
-  // 特定パターンの信頼度向上
-  if (/^act\d+[a-z]+$/.test(extractedType)) {
-    confidence += 0.4; // act13side、act13d などは高信頼度
-  } else if (/^(?:main|tough|sub)_\d+$/.test(extractedType)) {
-    confidence += 0.4; // main_XX、tough_XX、sub_XX などは高信頼度
-  } else if (/^wk_[a-z]+$/.test(extractedType)) {
-    confidence += 0.4; // wk_melee、wk_toxic などは高信頼度
-  } else if (/^[a-z]+\d+$/.test(extractedType)) {
-    confidence += 0.3; // a001 などは中程度の信頼度向上
+  // 数字と英字の組み合わせ（意味のある情報）
+  if (/\d/.test(extractedType) && /[a-z]/.test(extractedType)) {
+    confidence += 0.2;
   }
   
   // 元のIDとの差による信頼度調整
-  if (extractedType !== stageId && extractedType.length < stageId.length) {
+  if (extractedType !== stageId.toLowerCase() && extractedType.length < stageId.length) {
     confidence += 0.1;
   }
   
-  return Math.min(1.0, confidence);
+  // 信頼度の正規化
+  return Math.min(1.0, Math.max(0.1, confidence));
 }
 
 // メイン処理: 最新データからステージタイプを抽出
@@ -341,7 +321,7 @@ async function extractStageTypesFromLatest() {
     const stageConfidence = new Map();
     
     // 除外するstageIdのパターン
-    const excludePatterns = ['randommaterial' ,'gacha' ,'recruit'];
+    const excludePatterns = ['randommaterial', 'gacha', 'recruit', 'sub_'];
     
     // 全サーバーのデータを処理
     Object.entries(latestData.serverData).forEach(([server, serverData]) => {
