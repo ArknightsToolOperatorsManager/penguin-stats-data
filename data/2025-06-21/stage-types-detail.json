@@ -2,7 +2,7 @@
   {
     "stageType": "main",
     "count": 222,
-    "examples": "main_07-16, main_07-05, main_07-02, main_07-15, main_07-09",
+    "examples": "main_10-15, main_10-04, main_10-07, main_10-14, main_10-11",
     "avgConfidence": "1.000",
     "allStageIds": [
       "main_00-01",
@@ -228,12 +228,12 @@
       "main_15-16",
       "main_15-18"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "tough",
     "count": 85,
-    "examples": "tough_12-06, tough_10-12, tough_10-05, tough_12-12, tough_12-01",
+    "examples": "tough_10-13, tough_10-02, tough_10-09, tough_10-03, tough_10-15",
     "avgConfidence": "1.000",
     "allStageIds": [
       "tough_10-01",
@@ -322,12 +322,12 @@
       "tough_14-18",
       "tough_14-19"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act18d",
     "count": 49,
-    "examples": "act18d3_04_perm, act18d3_05_perm, act18d3_01_perm, act18d3_06_perm, act18d3_09_perm",
+    "examples": "act18d3_02, act18d3_08, act18d3_03, act18d3_06, act18d3_04",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act18d0_01",
@@ -380,12 +380,12 @@
       "act18d3_09_perm",
       "act18d3_09_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "sub",
     "count": 48,
-    "examples": "sub_07-1-1, sub_07-1-2, sub_03-2-1, sub_03-1-1, sub_02-05",
+    "examples": "sub_09-1-4, sub_09-1-3, sub_09-1-1, sub_04-2-3, sub_04-3-3",
     "avgConfidence": "1.000",
     "allStageIds": [
       "sub_02-01",
@@ -437,53 +437,12 @@
       "sub_09-1-3",
       "sub_09-1-4"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "act15d",
-    "count": 32,
-    "examples": "act15d0_03, act15d0_04, act15d0_07, act15d0_02, act15d0_08",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act15d0_01",
-      "act15d0_01_perm",
-      "act15d0_01_rep",
-      "act15d0_02",
-      "act15d0_02_perm",
-      "act15d0_02_rep",
-      "act15d0_03",
-      "act15d0_03_perm",
-      "act15d0_03_rep",
-      "act15d0_04",
-      "act15d0_04_perm",
-      "act15d0_04_rep",
-      "act15d0_05",
-      "act15d0_05_perm",
-      "act15d0_05_rep",
-      "act15d0_06",
-      "act15d0_06_perm",
-      "act15d0_06_rep",
-      "act15d0_07",
-      "act15d0_07_perm",
-      "act15d0_07_rep",
-      "act15d0_08",
-      "act15d0_08_perm",
-      "act15d0_08_rep",
-      "act15d5_01",
-      "act15d5_02",
-      "act15d5_03",
-      "act15d5_04",
-      "act15d5_05",
-      "act15d5_06",
-      "act15d5_07",
-      "act15d5_08"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act13d",
     "count": 32,
-    "examples": "act13d0_06, act13d0_05, act13d0_01, act13d0_07, act13d0_03",
+    "examples": "act13d5_02_perm, act13d5_07_perm, act13d5_03_perm, act13d5_06_perm, act13d5_04_perm",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act13d0_01",
@@ -519,12 +478,53 @@
       "act13d5_08_perm",
       "act13d5_08_rep"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "act15d",
+    "count": 32,
+    "examples": "act15d0_05_perm, act15d0_02_perm, act15d0_01_perm, act15d0_07_perm, act15d0_03_perm",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act15d0_01",
+      "act15d0_01_perm",
+      "act15d0_01_rep",
+      "act15d0_02",
+      "act15d0_02_perm",
+      "act15d0_02_rep",
+      "act15d0_03",
+      "act15d0_03_perm",
+      "act15d0_03_rep",
+      "act15d0_04",
+      "act15d0_04_perm",
+      "act15d0_04_rep",
+      "act15d0_05",
+      "act15d0_05_perm",
+      "act15d0_05_rep",
+      "act15d0_06",
+      "act15d0_06_perm",
+      "act15d0_06_rep",
+      "act15d0_07",
+      "act15d0_07_perm",
+      "act15d0_07_rep",
+      "act15d0_08",
+      "act15d0_08_perm",
+      "act15d0_08_rep",
+      "act15d5_01",
+      "act15d5_02",
+      "act15d5_03",
+      "act15d5_04",
+      "act15d5_05",
+      "act15d5_06",
+      "act15d5_07",
+      "act15d5_08"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act16d",
     "count": 30,
-    "examples": "act16d5_07_rep, act16d5_05_rep, act16d5_03_rep, act16d5_09_rep, act16d5_10_rep",
+    "examples": "act16d5_02, act16d5_09, act16d5_08, act16d5_10, act16d5_01",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act16d5_01",
@@ -558,12 +558,12 @@
       "act16d5_10_perm",
       "act16d5_10_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act13side",
     "count": 30,
-    "examples": "act13side_08_rep, act13side_04_rep, act13side_03_rep, act13side_05_rep, act13side_07_rep",
+    "examples": "act13side_05, act13side_04, act13side_01, act13side_07, act13side_06",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act13side_01",
@@ -597,12 +597,12 @@
       "act13side_10_perm",
       "act13side_10_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act17side",
     "count": 30,
-    "examples": "act17side_05_perm, act17side_09_perm, act17side_01_perm, act17side_08_perm, act17side_03_perm",
+    "examples": "act17side_06_rep, act17side_03_rep, act17side_09_rep, act17side_02_rep, act17side_04_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act17side_01",
@@ -636,12 +636,12 @@
       "act17side_10_perm",
       "act17side_10_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act25side",
     "count": 30,
-    "examples": "act25side_04, act25side_03, act25side_01, act25side_05, act25side_09",
+    "examples": "act25side_06_rep, act25side_08_rep, act25side_07_rep, act25side_03_rep, act25side_01_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act25side_01",
@@ -675,48 +675,12 @@
       "act25side_10_perm",
       "act25side_10_rep"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "act15side",
-    "count": 27,
-    "examples": "act15side_04, act15side_09, act15side_08, act15side_07, act15side_02",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act15side_01",
-      "act15side_01_perm",
-      "act15side_01_rep",
-      "act15side_02",
-      "act15side_02_perm",
-      "act15side_02_rep",
-      "act15side_03",
-      "act15side_03_perm",
-      "act15side_03_rep",
-      "act15side_04",
-      "act15side_04_perm",
-      "act15side_04_rep",
-      "act15side_05",
-      "act15side_05_perm",
-      "act15side_05_rep",
-      "act15side_06",
-      "act15side_06_perm",
-      "act15side_06_rep",
-      "act15side_07",
-      "act15side_07_perm",
-      "act15side_07_rep",
-      "act15side_08",
-      "act15side_08_perm",
-      "act15side_08_rep",
-      "act15side_09",
-      "act15side_09_perm",
-      "act15side_09_rep"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act12side",
     "count": 27,
-    "examples": "act12side_07_perm, act12side_02_perm, act12side_08_perm, act12side_04_perm, act12side_03_perm",
+    "examples": "act12side_05, act12side_08, act12side_01, act12side_09, act12side_07",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act12side_01",
@@ -747,12 +711,48 @@
       "act12side_09_perm",
       "act12side_09_rep"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "act15side",
+    "count": 27,
+    "examples": "act15side_02_perm, act15side_09_perm, act15side_01_perm, act15side_05_perm, act15side_07_perm",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act15side_01",
+      "act15side_01_perm",
+      "act15side_01_rep",
+      "act15side_02",
+      "act15side_02_perm",
+      "act15side_02_rep",
+      "act15side_03",
+      "act15side_03_perm",
+      "act15side_03_rep",
+      "act15side_04",
+      "act15side_04_perm",
+      "act15side_04_rep",
+      "act15side_05",
+      "act15side_05_perm",
+      "act15side_05_rep",
+      "act15side_06",
+      "act15side_06_perm",
+      "act15side_06_rep",
+      "act15side_07",
+      "act15side_07_perm",
+      "act15side_07_rep",
+      "act15side_08",
+      "act15side_08_perm",
+      "act15side_08_rep",
+      "act15side_09",
+      "act15side_09_perm",
+      "act15side_09_rep"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act12d",
     "count": 25,
-    "examples": "act12d0_05_perm, act12d0_02_perm, act12d0_04_perm, act12d0_03_perm, act12d0_08_perm",
+    "examples": "act12d0_06, act12d0_08, act12d0_05, act12d0_07, act12d0_01",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act12d0_01",
@@ -781,12 +781,12 @@
       "act12d0_08_rep",
       "act12d0_09_perm"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act16side",
     "count": 24,
-    "examples": "act16side_04_rep, act16side_08_rep, act16side_07_rep, act16side_01_rep, act16side_03_rep",
+    "examples": "act16side_02_rep, act16side_03_rep, act16side_06_rep, act16side_08_rep, act16side_07_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act16side_01",
@@ -814,45 +814,12 @@
       "act16side_08_perm",
       "act16side_08_rep"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "act9d",
-    "count": 24,
-    "examples": "act9d0_01_rep, act9d0_02_rep, act9d0_03_rep, act9d0_05_rep, act9d0_08_rep",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act9d0_01",
-      "act9d0_01_perm",
-      "act9d0_01_rep",
-      "act9d0_02",
-      "act9d0_02_perm",
-      "act9d0_02_rep",
-      "act9d0_03",
-      "act9d0_03_perm",
-      "act9d0_03_rep",
-      "act9d0_04",
-      "act9d0_04_perm",
-      "act9d0_04_rep",
-      "act9d0_05",
-      "act9d0_05_perm",
-      "act9d0_05_rep",
-      "act9d0_06",
-      "act9d0_06_perm",
-      "act9d0_06_rep",
-      "act9d0_07",
-      "act9d0_07_perm",
-      "act9d0_07_rep",
-      "act9d0_08",
-      "act9d0_08_perm",
-      "act9d0_08_rep"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act14side",
     "count": 24,
-    "examples": "act14side_05, act14side_03, act14side_07, act14side_01, act14side_06",
+    "examples": "act14side_05_rep, act14side_01_rep, act14side_02_rep, act14side_07_rep, act14side_06_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act14side_01",
@@ -880,12 +847,12 @@
       "act14side_08_perm",
       "act14side_08_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act19side",
     "count": 24,
-    "examples": "act19side_04_perm, act19side_06_perm, act19side_01_perm, act19side_07_perm, act19side_05_perm",
+    "examples": "act19side_02_rep, act19side_03_rep, act19side_06_rep, act19side_01_rep, act19side_07_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act19side_01",
@@ -913,44 +880,45 @@
       "act19side_08_perm",
       "act19side_08_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
-    "stageType": "act11d",
-    "count": 23,
-    "examples": "act11d0_07_rep, act11d0_05_rep, act11d0_01_rep, act11d0_03_rep, act11d0_08_rep",
+    "stageType": "act9d",
+    "count": 24,
+    "examples": "act9d0_01_rep, act9d0_03_rep, act9d0_02_rep, act9d0_04_rep, act9d0_05_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
-      "act11d0_01",
-      "act11d0_01_perm",
-      "act11d0_01_rep",
-      "act11d0_02",
-      "act11d0_02_perm",
-      "act11d0_02_rep",
-      "act11d0_03",
-      "act11d0_03_perm",
-      "act11d0_03_rep",
-      "act11d0_04",
-      "act11d0_04_rep",
-      "act11d0_05",
-      "act11d0_05_perm",
-      "act11d0_05_rep",
-      "act11d0_06",
-      "act11d0_06_perm",
-      "act11d0_06_rep",
-      "act11d0_07",
-      "act11d0_07_perm",
-      "act11d0_07_rep",
-      "act11d0_08",
-      "act11d0_08_perm",
-      "act11d0_08_rep"
+      "act9d0_01",
+      "act9d0_01_perm",
+      "act9d0_01_rep",
+      "act9d0_02",
+      "act9d0_02_perm",
+      "act9d0_02_rep",
+      "act9d0_03",
+      "act9d0_03_perm",
+      "act9d0_03_rep",
+      "act9d0_04",
+      "act9d0_04_perm",
+      "act9d0_04_rep",
+      "act9d0_05",
+      "act9d0_05_perm",
+      "act9d0_05_rep",
+      "act9d0_06",
+      "act9d0_06_perm",
+      "act9d0_06_rep",
+      "act9d0_07",
+      "act9d0_07_perm",
+      "act9d0_07_rep",
+      "act9d0_08",
+      "act9d0_08_perm",
+      "act9d0_08_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act18side",
     "count": 23,
-    "examples": "act18side_04_rep, act18side_07_rep, act18side_02_rep, act18side_06_rep, act18side_03_rep",
+    "examples": "act18side_02, act18side_08, act18side_03, act18side_04, act18side_05",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act18side_01",
@@ -977,12 +945,44 @@
       "act18side_08",
       "act18side_08_rep"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "act11d",
+    "count": 23,
+    "examples": "act11d0_01, act11d0_03, act11d0_04, act11d0_05, act11d0_08",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act11d0_01",
+      "act11d0_01_perm",
+      "act11d0_01_rep",
+      "act11d0_02",
+      "act11d0_02_perm",
+      "act11d0_02_rep",
+      "act11d0_03",
+      "act11d0_03_perm",
+      "act11d0_03_rep",
+      "act11d0_04",
+      "act11d0_04_rep",
+      "act11d0_05",
+      "act11d0_05_perm",
+      "act11d0_05_rep",
+      "act11d0_06",
+      "act11d0_06_perm",
+      "act11d0_06_rep",
+      "act11d0_07",
+      "act11d0_07_perm",
+      "act11d0_07_rep",
+      "act11d0_08",
+      "act11d0_08_perm",
+      "act11d0_08_rep"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act21side",
     "count": 20,
-    "examples": "act21side_05_rep, act21side_02_rep, act21side_07_rep, act21side_04_rep, act21side_03_rep",
+    "examples": "act21side_04, act21side_05, act21side_01, act21side_10, act21side_09",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act21side_01",
@@ -1006,12 +1006,12 @@
       "act21side_10",
       "act21side_10_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act29side",
     "count": 20,
-    "examples": "act29side_08, act29side_02, act29side_09, act29side_05, act29side_04",
+    "examples": "act29side_08, act29side_02, act29side_04, act29side_10, act29side_09",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act29side_01",
@@ -1035,12 +1035,12 @@
       "act29side_10",
       "act29side_10_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act31side",
     "count": 18,
-    "examples": "act31side_07_rep, act31side_06_rep, act31side_05_rep, act31side_03_rep, act31side_08_rep",
+    "examples": "act31side_05_rep, act31side_04_rep, act31side_09_rep, act31side_01_rep, act31side_06_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act31side_01",
@@ -1062,39 +1062,12 @@
       "act31side_09",
       "act31side_09_rep"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "act23side",
-    "count": 18,
-    "examples": "act23side_04_rep, act23side_07_rep, act23side_03_rep, act23side_05_rep, act23side_01_rep",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act23side_01",
-      "act23side_01_rep",
-      "act23side_02",
-      "act23side_02_rep",
-      "act23side_03",
-      "act23side_03_rep",
-      "act23side_04",
-      "act23side_04_rep",
-      "act23side_05",
-      "act23side_05_rep",
-      "act23side_06",
-      "act23side_06_rep",
-      "act23side_07",
-      "act23side_07_rep",
-      "act23side_08",
-      "act23side_08_rep",
-      "act23side_09",
-      "act23side_09_rep"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act20side",
     "count": 18,
-    "examples": "act20side_04_rep, act20side_01_rep, act20side_02_rep, act20side_08_rep, act20side_03_rep",
+    "examples": "act20side_03_rep, act20side_01_rep, act20side_07_rep, act20side_09_rep, act20side_06_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act20side_01",
@@ -1116,12 +1089,39 @@
       "act20side_09",
       "act20side_09_rep"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "act23side",
+    "count": 18,
+    "examples": "act23side_09, act23side_01, act23side_03, act23side_05, act23side_08",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act23side_01",
+      "act23side_01_rep",
+      "act23side_02",
+      "act23side_02_rep",
+      "act23side_03",
+      "act23side_03_rep",
+      "act23side_04",
+      "act23side_04_rep",
+      "act23side_05",
+      "act23side_05_rep",
+      "act23side_06",
+      "act23side_06_rep",
+      "act23side_07",
+      "act23side_07_rep",
+      "act23side_08",
+      "act23side_08_rep",
+      "act23side_09",
+      "act23side_09_rep"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act33side",
     "count": 17,
-    "examples": "act33side_01, act33side_05, act33side_03, act33side_10, act33side_08",
+    "examples": "act33side_03, act33side_01, act33side_08, act33side_06, act33side_05",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act33side_01",
@@ -1142,87 +1142,12 @@
       "act33side_08_rep",
       "act33side_10"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "act30side",
-    "count": 16,
-    "examples": "act30side_07_rep, act30side_03_rep, act30side_02_rep, act30side_01_rep, act30side_06_rep",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act30side_01",
-      "act30side_01_rep",
-      "act30side_02",
-      "act30side_02_rep",
-      "act30side_03",
-      "act30side_03_rep",
-      "act30side_04",
-      "act30side_04_rep",
-      "act30side_05",
-      "act30side_05_rep",
-      "act30side_06",
-      "act30side_06_rep",
-      "act30side_07",
-      "act30side_07_rep",
-      "act30side_08",
-      "act30side_08_rep"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act27side",
-    "count": 16,
-    "examples": "act27side_04_rep, act27side_01_rep, act27side_07_rep, act27side_03_rep, act27side_06_rep",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act27side_01",
-      "act27side_01_rep",
-      "act27side_02",
-      "act27side_02_rep",
-      "act27side_03",
-      "act27side_03_rep",
-      "act27side_04",
-      "act27side_04_rep",
-      "act27side_05",
-      "act27side_05_rep",
-      "act27side_06",
-      "act27side_06_rep",
-      "act27side_07",
-      "act27side_07_rep",
-      "act27side_08",
-      "act27side_08_rep"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act28side",
-    "count": 16,
-    "examples": "act28side_06_rep, act28side_03_rep, act28side_04_rep, act28side_07_rep, act28side_08_rep",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act28side_01",
-      "act28side_01_rep",
-      "act28side_02",
-      "act28side_02_rep",
-      "act28side_03",
-      "act28side_03_rep",
-      "act28side_04",
-      "act28side_04_rep",
-      "act28side_05",
-      "act28side_05_rep",
-      "act28side_06",
-      "act28side_06_rep",
-      "act28side_07",
-      "act28side_07_rep",
-      "act28side_08",
-      "act28side_08_rep"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act17d",
     "count": 16,
-    "examples": "act17d0_05_rep, act17d0_04_rep, act17d0_01_rep, act17d0_06_rep, act17d0_07_rep",
+    "examples": "act17d0_01_rep, act17d0_05_rep, act17d0_08_rep, act17d0_03_rep, act17d0_07_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act17d0_01",
@@ -1242,12 +1167,62 @@
       "act17d0_08",
       "act17d0_08_rep"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "act28side",
+    "count": 16,
+    "examples": "act28side_03, act28side_07, act28side_05, act28side_04, act28side_02",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act28side_01",
+      "act28side_01_rep",
+      "act28side_02",
+      "act28side_02_rep",
+      "act28side_03",
+      "act28side_03_rep",
+      "act28side_04",
+      "act28side_04_rep",
+      "act28side_05",
+      "act28side_05_rep",
+      "act28side_06",
+      "act28side_06_rep",
+      "act28side_07",
+      "act28side_07_rep",
+      "act28side_08",
+      "act28side_08_rep"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act27side",
+    "count": 16,
+    "examples": "act27side_06, act27side_02, act27side_03, act27side_07, act27side_05",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act27side_01",
+      "act27side_01_rep",
+      "act27side_02",
+      "act27side_02_rep",
+      "act27side_03",
+      "act27side_03_rep",
+      "act27side_04",
+      "act27side_04_rep",
+      "act27side_05",
+      "act27side_05_rep",
+      "act27side_06",
+      "act27side_06_rep",
+      "act27side_07",
+      "act27side_07_rep",
+      "act27side_08",
+      "act27side_08_rep"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act26side",
     "count": 16,
-    "examples": "act26side_08_rep, act26side_05_rep, act26side_04_rep, act26side_01_rep, act26side_02_rep",
+    "examples": "act26side_06_rep, act26side_05_rep, act26side_03_rep, act26side_02_rep, act26side_04_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act26side_01",
@@ -1267,36 +1242,37 @@
       "act26side_08",
       "act26side_08_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
-    "stageType": "act22side",
-    "count": 15,
-    "examples": "act22side_07, act22side_01, act22side_06, act22side_05, act22side_02",
+    "stageType": "act30side",
+    "count": 16,
+    "examples": "act30side_06, act30side_01, act30side_07, act30side_05, act30side_03",
     "avgConfidence": "1.000",
     "allStageIds": [
-      "act22side_01",
-      "act22side_01_rep",
-      "act22side_02",
-      "act22side_02_rep",
-      "act22side_03",
-      "act22side_03_rep",
-      "act22side_04",
-      "act22side_04_rep",
-      "act22side_05",
-      "act22side_05_rep",
-      "act22side_06",
-      "act22side_06_rep",
-      "act22side_07",
-      "act22side_07_rep",
-      "act22side_08"
+      "act30side_01",
+      "act30side_01_rep",
+      "act30side_02",
+      "act30side_02_rep",
+      "act30side_03",
+      "act30side_03_rep",
+      "act30side_04",
+      "act30side_04_rep",
+      "act30side_05",
+      "act30side_05_rep",
+      "act30side_06",
+      "act30side_06_rep",
+      "act30side_07",
+      "act30side_07_rep",
+      "act30side_08",
+      "act30side_08_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act34side",
     "count": 15,
-    "examples": "act34side_07, act34side_06, act34side_01, act34side_04, act34side_02",
+    "examples": "act34side_05_rep, act34side_07_rep, act34side_03_rep, act34side_02_rep, act34side_06_rep",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act34side_01",
@@ -1315,12 +1291,36 @@
       "act34side_07_rep",
       "act34side_08"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "act22side",
+    "count": 15,
+    "examples": "act22side_07_rep, act22side_06_rep, act22side_01_rep, act22side_02_rep, act22side_03_rep",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act22side_01",
+      "act22side_01_rep",
+      "act22side_02",
+      "act22side_02_rep",
+      "act22side_03",
+      "act22side_03_rep",
+      "act22side_04",
+      "act22side_04_rep",
+      "act22side_05",
+      "act22side_05_rep",
+      "act22side_06",
+      "act22side_06_rep",
+      "act22side_07",
+      "act22side_07_rep",
+      "act22side_08"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act5d",
     "count": 14,
-    "examples": "act5d0_07_rep, act5d0_02_rep, act5d0_06_rep, act5d0_04_rep, act5d0_10_rep",
+    "examples": "act5d0_01, act5d0_08, act5d0_10, act5d0_04, act5d0_02",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act5d0_01",
@@ -1338,12 +1338,12 @@
       "act5d0_10",
       "act5d0_10_rep"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act42side",
     "count": 10,
-    "examples": "act42side_01, act42side_10, act42side_07, act42side_05, act42side_09",
+    "examples": "act42side_09, act42side_05, act42side_01, act42side_07, act42side_02",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act42side_01",
@@ -1357,12 +1357,12 @@
       "act42side_09",
       "act42side_10"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act38side",
     "count": 10,
-    "examples": "act38side_06, act38side_05, act38side_03, act38side_04, act38side_09",
+    "examples": "act38side_09, act38side_10, act38side_08, act38side_07, act38side_01",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act38side_01",
@@ -1376,12 +1376,12 @@
       "act38side_09",
       "act38side_10"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act40side",
     "count": 9,
-    "examples": "act40side_08, act40side_02, act40side_07, act40side_03, act40side_05",
+    "examples": "act40side_06, act40side_05, act40side_09, act40side_07, act40side_04",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act40side_01",
@@ -1394,30 +1394,12 @@
       "act40side_08",
       "act40side_09"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "act35side",
-    "count": 9,
-    "examples": "act35side_03, act35side_09, act35side_02, act35side_05, act35side_04",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act35side_01",
-      "act35side_02",
-      "act35side_03",
-      "act35side_04",
-      "act35side_05",
-      "act35side_06",
-      "act35side_07",
-      "act35side_08",
-      "act35side_09"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act37side",
     "count": 9,
-    "examples": "act37side_04, act37side_09, act37side_02, act37side_06, act37side_07",
+    "examples": "act37side_05, act37side_01, act37side_03, act37side_08, act37side_06",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act37side_01",
@@ -1430,12 +1412,12 @@
       "act37side_08",
       "act37side_09"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act24side",
     "count": 9,
-    "examples": "act24side_06, act24side_01, act24side_03, act24side_02, act24side_08",
+    "examples": "act24side_04, act24side_06, act24side_02, act24side_08, act24side_09",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act24side_01",
@@ -1448,12 +1430,30 @@
       "act24side_08",
       "act24side_09"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "act35side",
+    "count": 9,
+    "examples": "act35side_06, act35side_01, act35side_09, act35side_04, act35side_05",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act35side_01",
+      "act35side_02",
+      "act35side_03",
+      "act35side_04",
+      "act35side_05",
+      "act35side_06",
+      "act35side_07",
+      "act35side_08",
+      "act35side_09"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act10mini",
     "count": 8,
-    "examples": "act10mini_02, act10mini_08, act10mini_01, act10mini_07, act10mini_05",
+    "examples": "act10mini_07, act10mini_04, act10mini_06, act10mini_05, act10mini_01",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act10mini_01",
@@ -1465,216 +1465,12 @@
       "act10mini_07",
       "act10mini_08"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "act12mini",
-    "count": 8,
-    "examples": "act12mini_02, act12mini_06, act12mini_03, act12mini_01, act12mini_05",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act12mini_01",
-      "act12mini_02",
-      "act12mini_03",
-      "act12mini_04",
-      "act12mini_05",
-      "act12mini_06",
-      "act12mini_07",
-      "act12mini_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act41side",
-    "count": 8,
-    "examples": "act41side_08, act41side_06, act41side_04, act41side_07, act41side_01",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act41side_01",
-      "act41side_02",
-      "act41side_03",
-      "act41side_04",
-      "act41side_05",
-      "act41side_06",
-      "act41side_07",
-      "act41side_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act36side",
-    "count": 8,
-    "examples": "act36side_08, act36side_03, act36side_05, act36side_01, act36side_04",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act36side_01",
-      "act36side_02",
-      "act36side_03",
-      "act36side_04",
-      "act36side_05",
-      "act36side_06",
-      "act36side_07",
-      "act36side_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act6d",
-    "count": 8,
-    "examples": "act6d5_06, act6d5_03, act6d5_02, act6d5_08, act6d5_07",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act6d5_01",
-      "act6d5_02",
-      "act6d5_03",
-      "act6d5_04",
-      "act6d5_05",
-      "act6d5_06",
-      "act6d5_07",
-      "act6d5_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act39side",
-    "count": 8,
-    "examples": "act39side_06, act39side_08, act39side_02, act39side_03, act39side_05",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act39side_01",
-      "act39side_02",
-      "act39side_03",
-      "act39side_04",
-      "act39side_05",
-      "act39side_06",
-      "act39side_07",
-      "act39side_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act43side",
-    "count": 8,
-    "examples": "act43side_07, act43side_04, act43side_06, act43side_03, act43side_08",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act43side_01",
-      "act43side_02",
-      "act43side_03",
-      "act43side_04",
-      "act43side_05",
-      "act43side_06",
-      "act43side_07",
-      "act43side_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act16mini",
-    "count": 8,
-    "examples": "act16mini_02, act16mini_05, act16mini_07, act16mini_01, act16mini_06",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act16mini_01",
-      "act16mini_02",
-      "act16mini_03",
-      "act16mini_04",
-      "act16mini_05",
-      "act16mini_06",
-      "act16mini_07",
-      "act16mini_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act11mini",
-    "count": 8,
-    "examples": "act11mini_08, act11mini_06, act11mini_02, act11mini_05, act11mini_04",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act11mini_01",
-      "act11mini_02",
-      "act11mini_03",
-      "act11mini_04",
-      "act11mini_05",
-      "act11mini_06",
-      "act11mini_07",
-      "act11mini_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act17mini",
-    "count": 8,
-    "examples": "act17mini_08, act17mini_05, act17mini_06, act17mini_03, act17mini_04",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act17mini_01",
-      "act17mini_02",
-      "act17mini_03",
-      "act17mini_04",
-      "act17mini_05",
-      "act17mini_06",
-      "act17mini_07",
-      "act17mini_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act13mini",
-    "count": 8,
-    "examples": "act13mini_06, act13mini_07, act13mini_08, act13mini_01, act13mini_03",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act13mini_01",
-      "act13mini_02",
-      "act13mini_03",
-      "act13mini_04",
-      "act13mini_05",
-      "act13mini_06",
-      "act13mini_07",
-      "act13mini_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act32side",
-    "count": 8,
-    "examples": "act32side_05, act32side_01, act32side_07, act32side_04, act32side_06",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act32side_01",
-      "act32side_02",
-      "act32side_03",
-      "act32side_04",
-      "act32side_05",
-      "act32side_06",
-      "act32side_07",
-      "act32side_08"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act14mini",
-    "count": 8,
-    "examples": "act14mini_08, act14mini_02, act14mini_05, act14mini_01, act14mini_06",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act14mini_01",
-      "act14mini_02",
-      "act14mini_03",
-      "act14mini_04",
-      "act14mini_05",
-      "act14mini_06",
-      "act14mini_07",
-      "act14mini_08"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act18mini",
     "count": 8,
-    "examples": "act18mini_06, act18mini_03, act18mini_02, act18mini_07, act18mini_01",
+    "examples": "act18mini_05, act18mini_04, act18mini_08, act18mini_03, act18mini_02",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act18mini_01",
@@ -1686,12 +1482,63 @@
       "act18mini_07",
       "act18mini_08"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "act16mini",
+    "count": 8,
+    "examples": "act16mini_01, act16mini_04, act16mini_08, act16mini_06, act16mini_03",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act16mini_01",
+      "act16mini_02",
+      "act16mini_03",
+      "act16mini_04",
+      "act16mini_05",
+      "act16mini_06",
+      "act16mini_07",
+      "act16mini_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act36side",
+    "count": 8,
+    "examples": "act36side_01, act36side_05, act36side_02, act36side_04, act36side_06",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act36side_01",
+      "act36side_02",
+      "act36side_03",
+      "act36side_04",
+      "act36side_05",
+      "act36side_06",
+      "act36side_07",
+      "act36side_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act11mini",
+    "count": 8,
+    "examples": "act11mini_02, act11mini_07, act11mini_01, act11mini_05, act11mini_03",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act11mini_01",
+      "act11mini_02",
+      "act11mini_03",
+      "act11mini_04",
+      "act11mini_05",
+      "act11mini_06",
+      "act11mini_07",
+      "act11mini_08"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act15mini",
     "count": 8,
-    "examples": "act15mini_05, act15mini_02, act15mini_06, act15mini_08, act15mini_01",
+    "examples": "act15mini_02, act15mini_05, act15mini_03, act15mini_08, act15mini_04",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act15mini_01",
@@ -1703,12 +1550,165 @@
       "act15mini_07",
       "act15mini_08"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "act39side",
+    "count": 8,
+    "examples": "act39side_04, act39side_03, act39side_02, act39side_06, act39side_01",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act39side_01",
+      "act39side_02",
+      "act39side_03",
+      "act39side_04",
+      "act39side_05",
+      "act39side_06",
+      "act39side_07",
+      "act39side_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act12mini",
+    "count": 8,
+    "examples": "act12mini_02, act12mini_06, act12mini_01, act12mini_07, act12mini_08",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act12mini_01",
+      "act12mini_02",
+      "act12mini_03",
+      "act12mini_04",
+      "act12mini_05",
+      "act12mini_06",
+      "act12mini_07",
+      "act12mini_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act13mini",
+    "count": 8,
+    "examples": "act13mini_04, act13mini_07, act13mini_05, act13mini_08, act13mini_02",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act13mini_01",
+      "act13mini_02",
+      "act13mini_03",
+      "act13mini_04",
+      "act13mini_05",
+      "act13mini_06",
+      "act13mini_07",
+      "act13mini_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act32side",
+    "count": 8,
+    "examples": "act32side_06, act32side_03, act32side_04, act32side_02, act32side_08",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act32side_01",
+      "act32side_02",
+      "act32side_03",
+      "act32side_04",
+      "act32side_05",
+      "act32side_06",
+      "act32side_07",
+      "act32side_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act17mini",
+    "count": 8,
+    "examples": "act17mini_07, act17mini_04, act17mini_01, act17mini_03, act17mini_02",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act17mini_01",
+      "act17mini_02",
+      "act17mini_03",
+      "act17mini_04",
+      "act17mini_05",
+      "act17mini_06",
+      "act17mini_07",
+      "act17mini_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act14mini",
+    "count": 8,
+    "examples": "act14mini_04, act14mini_02, act14mini_01, act14mini_08, act14mini_05",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act14mini_01",
+      "act14mini_02",
+      "act14mini_03",
+      "act14mini_04",
+      "act14mini_05",
+      "act14mini_06",
+      "act14mini_07",
+      "act14mini_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act41side",
+    "count": 8,
+    "examples": "act41side_06, act41side_01, act41side_04, act41side_08, act41side_02",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act41side_01",
+      "act41side_02",
+      "act41side_03",
+      "act41side_04",
+      "act41side_05",
+      "act41side_06",
+      "act41side_07",
+      "act41side_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act43side",
+    "count": 8,
+    "examples": "act43side_02, act43side_01, act43side_07, act43side_06, act43side_08",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act43side_01",
+      "act43side_02",
+      "act43side_03",
+      "act43side_04",
+      "act43side_05",
+      "act43side_06",
+      "act43side_07",
+      "act43side_08"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "act6d",
+    "count": 8,
+    "examples": "act6d5_04, act6d5_05, act6d5_08, act6d5_07, act6d5_02",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "act6d5_01",
+      "act6d5_02",
+      "act6d5_03",
+      "act6d5_04",
+      "act6d5_05",
+      "act6d5_06",
+      "act6d5_07",
+      "act6d5_08"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act10d",
     "count": 7,
-    "examples": "act10d5_03, act10d5_05, act10d5_06, act10d5_01, act10d5_07",
+    "examples": "act10d5_01, act10d5_04, act10d5_06, act10d5_02, act10d5_07",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act10d5_01",
@@ -1719,12 +1719,12 @@
       "act10d5_06",
       "act10d5_07"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act8mini",
     "count": 7,
-    "examples": "act8mini_06, act8mini_04, act8mini_02, act8mini_01, act8mini_05",
+    "examples": "act8mini_04, act8mini_05, act8mini_03, act8mini_06, act8mini_01",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act8mini_01",
@@ -1735,57 +1735,12 @@
       "act8mini_06",
       "act8mini_07"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "wk_melee",
-    "count": 6,
-    "examples": "wk_melee_4, wk_melee_5, wk_melee_1, wk_melee_3, wk_melee_6",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "wk_melee_1",
-      "wk_melee_2",
-      "wk_melee_3",
-      "wk_melee_4",
-      "wk_melee_5",
-      "wk_melee_6"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "wk_kc",
-    "count": 6,
-    "examples": "wk_kc_5, wk_kc_1, wk_kc_6, wk_kc_2, wk_kc_4",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "wk_kc_1",
-      "wk_kc_2",
-      "wk_kc_3",
-      "wk_kc_4",
-      "wk_kc_5",
-      "wk_kc_6"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "act7d",
-    "count": 6,
-    "examples": "act7d5_04, act7d5_01, act7d5_02, act7d5_05, act7d5_06",
-    "avgConfidence": "1.000",
-    "allStageIds": [
-      "act7d5_01",
-      "act7d5_02",
-      "act7d5_03",
-      "act7d5_04",
-      "act7d5_05",
-      "act7d5_06"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act9mini",
     "count": 6,
-    "examples": "act9mini_01, act9mini_03, act9mini_06, act9mini_04, act9mini_05",
+    "examples": "act9mini_03, act9mini_06, act9mini_04, act9mini_01, act9mini_02",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act9mini_01",
@@ -1795,54 +1750,57 @@
       "act9mini_05",
       "act9mini_06"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
-    "stageType": "wk_toxic",
-    "count": 5,
-    "examples": "wk_toxic_5, wk_toxic_4, wk_toxic_3, wk_toxic_1, wk_toxic_2",
+    "stageType": "wk_kc",
+    "count": 6,
+    "examples": "wk_kc_3, wk_kc_5, wk_kc_4, wk_kc_6, wk_kc_2",
     "avgConfidence": "1.000",
     "allStageIds": [
-      "wk_toxic_1",
-      "wk_toxic_2",
-      "wk_toxic_3",
-      "wk_toxic_4",
-      "wk_toxic_5"
+      "wk_kc_1",
+      "wk_kc_2",
+      "wk_kc_3",
+      "wk_kc_4",
+      "wk_kc_5",
+      "wk_kc_6"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
-    "stageType": "wk_fly",
-    "count": 5,
-    "examples": "wk_fly_3, wk_fly_5, wk_fly_2, wk_fly_4, wk_fly_1",
+    "stageType": "wk_melee",
+    "count": 6,
+    "examples": "wk_melee_2, wk_melee_1, wk_melee_3, wk_melee_5, wk_melee_4",
     "avgConfidence": "1.000",
     "allStageIds": [
-      "wk_fly_1",
-      "wk_fly_2",
-      "wk_fly_3",
-      "wk_fly_4",
-      "wk_fly_5"
+      "wk_melee_1",
+      "wk_melee_2",
+      "wk_melee_3",
+      "wk_melee_4",
+      "wk_melee_5",
+      "wk_melee_6"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
-    "stageType": "wk_armor",
-    "count": 5,
-    "examples": "wk_armor_1, wk_armor_5, wk_armor_4, wk_armor_2, wk_armor_3",
+    "stageType": "act7d",
+    "count": 6,
+    "examples": "act7d5_02, act7d5_06, act7d5_04, act7d5_03, act7d5_05",
     "avgConfidence": "1.000",
     "allStageIds": [
-      "wk_armor_1",
-      "wk_armor_2",
-      "wk_armor_3",
-      "wk_armor_4",
-      "wk_armor_5"
+      "act7d5_01",
+      "act7d5_02",
+      "act7d5_03",
+      "act7d5_04",
+      "act7d5_05",
+      "act7d5_06"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "act4d",
     "count": 5,
-    "examples": "act4d0_03, act4d0_02, act4d0_05, act4d0_04, act4d0_01",
+    "examples": "act4d0_05, act4d0_03, act4d0_02, act4d0_04, act4d0_01",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act4d0_01",
@@ -1851,12 +1809,54 @@
       "act4d0_04",
       "act4d0_05"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "wk_armor",
+    "count": 5,
+    "examples": "wk_armor_3, wk_armor_5, wk_armor_4, wk_armor_1, wk_armor_2",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "wk_armor_1",
+      "wk_armor_2",
+      "wk_armor_3",
+      "wk_armor_4",
+      "wk_armor_5"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "wk_toxic",
+    "count": 5,
+    "examples": "wk_toxic_5, wk_toxic_3, wk_toxic_2, wk_toxic_4, wk_toxic_1",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "wk_toxic_1",
+      "wk_toxic_2",
+      "wk_toxic_3",
+      "wk_toxic_4",
+      "wk_toxic_5"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "wk_fly",
+    "count": 5,
+    "examples": "wk_fly_5, wk_fly_3, wk_fly_4, wk_fly_2, wk_fly_1",
+    "avgConfidence": "1.000",
+    "allStageIds": [
+      "wk_fly_1",
+      "wk_fly_2",
+      "wk_fly_3",
+      "wk_fly_4",
+      "wk_fly_5"
+    ],
+    "isNew": false
   },
   {
     "stageType": "act7mini",
     "count": 5,
-    "examples": "act7mini_04, act7mini_03, act7mini_01, act7mini_05, act7mini_02",
+    "examples": "act7mini_01, act7mini_02, act7mini_05, act7mini_03, act7mini_04",
     "avgConfidence": "1.000",
     "allStageIds": [
       "act7mini_01",
@@ -1865,7 +1865,7 @@
       "act7mini_04",
       "act7mini_05"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "activity",
@@ -1875,12 +1875,12 @@
     "allStageIds": [
       "act24side_gacha"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "randommaterial",
     "count": 9,
-    "examples": "randomMaterial_8, randomMaterial_2, randomMaterial_6, randomMaterial_9, randomMaterial_1",
+    "examples": "randomMaterial_6, randomMaterial_4, randomMaterial_3, randomMaterial_9, randomMaterial_8",
     "avgConfidence": "0.800",
     "allStageIds": [
       "randomMaterial_1",
@@ -1893,12 +1893,12 @@
       "randomMaterial_8",
       "randomMaterial_9"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "a003_f",
     "count": 4,
-    "examples": "a003_f01_perm, a003_f02_perm, a003_f03_perm, a003_f04_perm",
+    "examples": "a003_f03_perm, a003_f04_perm, a003_f02_perm, a003_f01_perm",
     "avgConfidence": "0.800",
     "allStageIds": [
       "a003_f01_perm",
@@ -1906,40 +1906,7 @@
       "a003_f03_perm",
       "a003_f04_perm"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "pro_d",
-    "count": 2,
-    "examples": "pro_d_1, pro_d_2",
-    "avgConfidence": "0.800",
-    "allStageIds": [
-      "pro_d_1",
-      "pro_d_2"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "pro_b",
-    "count": 2,
-    "examples": "pro_b_1, pro_b_2",
-    "avgConfidence": "0.800",
-    "allStageIds": [
-      "pro_b_1",
-      "pro_b_2"
-    ],
-    "isNew": true
-  },
-  {
-    "stageType": "pro_a",
-    "count": 2,
-    "examples": "pro_a_1, pro_a_2",
-    "avgConfidence": "0.800",
-    "allStageIds": [
-      "pro_a_1",
-      "pro_a_2"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "pro_c",
@@ -1950,7 +1917,40 @@
       "pro_c_1",
       "pro_c_2"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "pro_a",
+    "count": 2,
+    "examples": "pro_a_2, pro_a_1",
+    "avgConfidence": "0.800",
+    "allStageIds": [
+      "pro_a_1",
+      "pro_a_2"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "pro_b",
+    "count": 2,
+    "examples": "pro_b_2, pro_b_1",
+    "avgConfidence": "0.800",
+    "allStageIds": [
+      "pro_b_1",
+      "pro_b_2"
+    ],
+    "isNew": false
+  },
+  {
+    "stageType": "pro_d",
+    "count": 2,
+    "examples": "pro_d_1, pro_d_2",
+    "avgConfidence": "0.800",
+    "allStageIds": [
+      "pro_d_1",
+      "pro_d_2"
+    ],
+    "isNew": false
   },
   {
     "stageType": "gachabox",
@@ -1960,7 +1960,7 @@
     "allStageIds": [
       "gachabox6"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "recruit",
@@ -1970,12 +1970,12 @@
     "allStageIds": [
       "recruit"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "a",
     "count": 30,
-    "examples": "a001_06, a001_04, a001_05, a001_01, a001_02",
+    "examples": "a001_05, a001_01, a001_03, a001_06, a001_02",
     "avgConfidence": "0.600",
     "allStageIds": [
       "a001_01",
@@ -2009,12 +2009,12 @@
       "a003_f03",
       "a003_f04"
     ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "randommaterialrune",
     "count": 13,
-    "examples": "randomMaterialRune_0, randomMaterialRune_10, randomMaterialRune_12, randomMaterialRune_11, randomMaterialRune_3",
+    "examples": "randomMaterialRune_0, randomMaterialRune_8, randomMaterialRune_2, randomMaterialRune_9, randomMaterialRune_5",
     "avgConfidence": "0.600",
     "allStageIds": [
       "randomMaterialRune_0",
@@ -2031,17 +2031,7 @@
       "randomMaterialRune_8",
       "randomMaterialRune_9"
     ],
-    "isNew": true
-  },
-  {
-    "stageType": "randommaterial_siesta",
-    "count": 1,
-    "examples": "randomMaterial_siesta2",
-    "avgConfidence": "0.600",
-    "allStageIds": [
-      "randomMaterial_siesta2"
-    ],
-    "isNew": true
+    "isNew": false
   },
   {
     "stageType": "randommaterial_rhine",
@@ -2051,6 +2041,16 @@
     "allStageIds": [
       "randomMaterial_rhine2"
     ],
-    "isNew": true
+    "isNew": false
+  },
+  {
+    "stageType": "randommaterial_siesta",
+    "count": 1,
+    "examples": "randomMaterial_siesta2",
+    "avgConfidence": "0.600",
+    "allStageIds": [
+      "randomMaterial_siesta2"
+    ],
+    "isNew": false
   }
 ]
