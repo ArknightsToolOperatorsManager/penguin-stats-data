@@ -59,11 +59,19 @@ async function sendToGoogleSpreadsheet(newTypes) {
   // GAS WebアプリのURL（環境変数または設定から取得）
   const GAS_WEBHOOK_URL = process.env.GAS_WEBHOOK_URL;
   
+  console.log('🔍 Environment check:');
+  console.log(`   GAS_WEBHOOK_URL exists: ${!!GAS_WEBHOOK_URL}`);
+  console.log(`   GAS_WEBHOOK_URL length: ${GAS_WEBHOOK_URL ? GAS_WEBHOOK_URL.length : 0}`);
+  if (GAS_WEBHOOK_URL) {
+    console.log(`   GAS_WEBHOOK_URL starts with: ${GAS_WEBHOOK_URL.substring(0, 50)}...`);
+  }
+  
   if (!GAS_WEBHOOK_URL) {
     throw new Error('GAS_WEBHOOK_URL environment variable not set');
   }
   
   console.log('🔗 Calling Google Apps Script webhook...');
+  console.log(`📤 Sending ${newTypes.length} new stage types to GAS`);
   
   // GASに送信するデータを整形
   const payload = {
@@ -78,23 +86,37 @@ async function sendToGoogleSpreadsheet(newTypes) {
     }))
   };
   
-  const response = await fetch(GAS_WEBHOOK_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload)
-  });
+  console.log('📋 Payload preview:', JSON.stringify(payload, null, 2).substring(0, 500) + '...');
   
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`GAS webhook failed: ${response.status} - ${errorText}`);
+  try {
+    const response = await fetch(GAS_WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+    
+    console.log(`📡 HTTP Response Status: ${response.status} ${response.statusText}`);
+    console.log(`📡 Response Headers:`, Object.fromEntries(response.headers.entries()));
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`❌ GAS webhook failed with status ${response.status}`);
+      console.error(`❌ Error response body:`, errorText);
+      throw new Error(`GAS webhook failed: ${response.status} - ${errorText}`);
+    }
+    
+    const result = await response.text();
+    console.log(`✅ GAS response: ${result}`);
+    
+    return result;
+    
+  } catch (error) {
+    console.error('❌ Network error calling GAS webhook:', error.message);
+    console.error('❌ Error details:', error);
+    throw error;
   }
-  
-  const result = await response.text();
-  console.log(`📤 GAS response: ${result}`);
-  
-  return result;
 }
 
 // 動的にステージタイプを抽出する関数
