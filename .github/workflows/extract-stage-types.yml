@@ -102,51 +102,13 @@ jobs:
           git push
         fi
     
-    - name: Create issue for new stage types
-      if: steps.check_new_types.outputs.has_new_types == 'true' && steps.check_new_types.outputs.new_types_count > 0
-      uses: actions/github-script@v7
-      with:
-        script: |
-          const fs = require('fs');
-          
-          try {
-            const newTypes = JSON.parse(fs.readFileSync('data/latest-new-stage-types.json', 'utf8'));
-            
-            let issueBody = `## 🆕 新しいステージタイプが発見されました\n\n`;
-            issueBody += `**発見数**: ${newTypes.length}個\n\n`;
-            issueBody += `### 🔍 新しいステージタイプ一覧\n\n`;
-            
-            newTypes.forEach((type, index) => {
-              issueBody += `#### ${index + 1}. \`${type.stageType}\`\n`;
-              issueBody += `- **出現ステージ数**: ${type.count}\n`;
-              issueBody += `- **信頼度**: ${type.avgConfidence}\n`;
-              issueBody += `- **例**: ${type.examples}\n\n`;
-            });
-            
-            issueBody += `### 📝 作業が必要\n\n`;
-            issueBody += `以下のGoogle Spreadsheetに日本語名を追加してください:\n`;
-            issueBody += `https://docs.google.com/spreadsheets/d/1ZJ85ZwS1fJFwZ9KZp0YCNzsRRMXx1vMiEaOfr-lYTw8/edit#gid=0\n\n`;
-            issueBody += `### 📄 生成ファイル\n`;
-            issueBody += `- \`data/latest-new-stage-types.json\` - 詳細データ\n`;
-            issueBody += `- \`data/latest-new-stage-types.csv\` - CSV形式（確認用）\n\n`;
-            issueBody += `---\n*このIssueは自動生成されました*`;
-            
-            const issue = await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `🆕 新しいステージタイプ発見 (${newTypes.length}個) - ${new Date().toISOString().split('T')[0]}`,
-              body: issueBody,
-              labels: ['stage-types', 'auto-generated', 'needs-manual-work']
-            });
-            
-            console.log(`📋 Issue created: ${issue.data.html_url}`);
-          } catch (error) {
-            console.error('❌ Error creating issue:', error);
-          }
-    
     - name: Summary
       run: |
         echo "🏁 Stage types analysis completed!"
         echo "📊 Data processed: ${{ steps.check_data.outputs.data_exists }}"
         echo "🆕 New types found: ${{ steps.check_new_types.outputs.has_new_types }}"
         echo "📈 New types count: ${{ steps.check_new_types.outputs.new_types_count }}"
+        if [ "${{ steps.check_new_types.outputs.has_new_types }}" == "true" ]; then
+          echo "🔶 New stage types sent to Google Spreadsheet with orange highlighting"
+          echo "📝 Manual work needed: Add Japanese, English, and Chinese names to the spreadsheet"
+        fi
