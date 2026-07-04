@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArknightsToolOperatorsManager/penguin-stats-data.git"
+    "url": "git+https://github.com/ /penguin-stats-data.git"
   },
   "keywords": [
     "arknights",
@@ -19,12 +19,12 @@
     "drop-rates",
     "statistics"
   ],
-  "author": "アークナイツツールマン <an.manager.tool@gmail.com>",
+  "author": "  <yorutsuki22@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ArknightsToolOperatorsManager/penguin-stats-data/issues"
+    "url": "https://github.com/ /penguin-stats-data/issues"
   },
-  "homepage": "https://github.com/ArknightsToolOperatorsManager/penguin-stats-data#readme",
+  "homepage": "https://github.com/ /penguin-stats-data#readme",
   "engines": {
     "node": ">=18.0.0"
   },
