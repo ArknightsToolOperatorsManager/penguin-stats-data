@@ -2,75 +2,84 @@ name: Fetch Penguin Statistics Daily
 
 on:
   schedule:
-    # 毎日 UTC 0:00 に実行
     - cron: '0 0 * * *'
-  workflow_dispatch: # 手動実行も可能
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   fetch-data:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        
-    - name: Install dependencies
-      run: npm install
-      
-    - name: Create data directory
-      run: mkdir -p data
-        
-    - name: Fetch Penguin Statistics Data
-      run: |
-        # データ取得スクリプトの実行
-        node scripts/fetch-penguin-stats.js
-        
-    - name: Debug - List created files
-      run: |
-        echo "=== Current directory ==="
-        pwd
-        echo "=== Contents of data directory ==="
-        ls -la data/ || echo "data directory not found"
-        echo "=== Git status ==="
-        git status
-        
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "an.manager.tool@gmail.com"
-        git config --local user.name "ArknightsTool-MAN"
-        
-        echo "=== Current directory ==="
-        pwd
-        echo "=== Contents of data directory ==="
-        ls -la data/ || echo "data directory not found"
-        echo "=== Git status before add ==="
-        git status
-        
-        echo "=== Adding files ==="
-        git add data/
-        git add -A
-        
-        echo "=== Git status after add ==="
-        git status
-        
-        echo "=== Git diff --staged ==="
-        git diff --staged --name-only
-        
-        # 変更がある場合のみコミット
-        if git diff --staged --quiet; then
-          echo "❌ No changes to commit"
-          echo "=== Checking if files exist ==="
-          find data/ -name "*.json" -type f
-        else
-          echo "✅ Changes detected, committing..."
-          git commit -m "Update penguin stats data - $(date +'%Y-%m-%d %H:%M:%S')"
-          echo "=== Pushing changes ==="
-          git push
-        fi
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create data directory
+        run: mkdir -p data
+
+      - name: Fetch Penguin Statistics Data
+        run: node scripts/fetch-penguin-stats.js
+
+      - name: Generate CN distribution data
+        run: node scripts/generate-distribution-data.js
+
+      - name: Validate generated distribution data
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const file = 'data/distribution/penguin_cn_drop_data.json';
+          const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+          if (data.server !== 'CN') throw new Error('Unexpected server');
+          if (!Number.isInteger(data.stageCount) || data.stageCount <= 0) throw new Error('No stages generated');
+          if (!Number.isInteger(data.recordCount) || data.recordCount <= 0) throw new Error('No records generated');
+          if (!data.stages || Object.keys(data.stages).length !== data.stageCount) throw new Error('stageCount mismatch');
+          console.log(`Validated ${data.stageCount} stages / ${data.recordCount} records`);
+          NODE
+
+      - name: Commit source data changes
+        run: |
+          git config --local user.email "an.manager.tool@gmail.com"
+          git config --local user.name "ArknightsTool-MAN"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "No source data changes to commit"
+          else
+            git commit -m "Update penguin stats data - $(date +'%Y-%m-%d %H:%M:%S')"
+            git push
+          fi
+
+      - name: Checkout master-data-file
+        uses: actions/checkout@v4
+        with:
+          repository: Memoria-ll/master-data-file
+          ref: main
+          token: ${{ secrets.MASTER_DATA_REPO_TOKEN }}
+          path: master-data-file
+
+      - name: Publish CN distribution data to master-data-file
+        run: |
+          install -D \
+            data/distribution/penguin_cn_drop_data.json \
+            master-data-file/arknights-data/stage/penguin_cn_drop_data.json
+
+          cd master-data-file
+          git config user.email "an.manager.tool@gmail.com"
+          git config user.name "ArknightsTool-MAN"
+          git add arknights-data/stage/penguin_cn_drop_data.json
+
+          if git diff --staged --quiet; then
+            echo "No distribution data changes to publish"
+          else
+            git commit -m "Update Penguin CN drop data - $(date +'%Y-%m-%d %H:%M:%S')"
+            git push origin main
+          fi
