@@ -30,20 +30,38 @@ jobs:
       - name: Fetch Penguin Statistics Data
         run: node scripts/fetch-penguin-stats.js
 
-      - name: Generate CN distribution data
-        run: node scripts/generate-distribution-data.js
+      - name: Generate distribution data
+        run: |
+          node scripts/generate-distribution-data.js
+          node scripts/generate-active-stages-data.js
 
       - name: Validate generated distribution data
         run: |
           node - <<'NODE'
           const fs = require('fs');
-          const file = 'data/distribution/penguin_cn_drop_data.json';
-          const data = JSON.parse(fs.readFileSync(file, 'utf8'));
-          if (data.server !== 'CN') throw new Error('Unexpected server');
-          if (!Number.isInteger(data.stageCount) || data.stageCount <= 0) throw new Error('No stages generated');
-          if (!Number.isInteger(data.recordCount) || data.recordCount <= 0) throw new Error('No records generated');
-          if (!data.stages || Object.keys(data.stages).length !== data.stageCount) throw new Error('stageCount mismatch');
-          console.log(`Validated ${data.stageCount} stages / ${data.recordCount} records`);
+
+          const dropsFile = 'data/distribution/penguin_cn_drop_data.json';
+          const drops = JSON.parse(fs.readFileSync(dropsFile, 'utf8'));
+          if (drops.server !== 'CN') throw new Error('Unexpected drop-data server');
+          if (!Number.isInteger(drops.stageCount) || drops.stageCount <= 0) throw new Error('No drop stages generated');
+          if (!Number.isInteger(drops.recordCount) || drops.recordCount <= 0) throw new Error('No drop records generated');
+          if (!drops.stages || Object.keys(drops.stages).length !== drops.stageCount) throw new Error('Drop stageCount mismatch');
+
+          const activeFile = 'data/distribution/penguin_active_stages.json';
+          const active = JSON.parse(fs.readFileSync(activeFile, 'utf8'));
+          if (active.schemaVersion !== 1) throw new Error('Unexpected active-stage schema version');
+          if (!Number.isInteger(active.graceDays) || active.graceDays < 0) throw new Error('Invalid graceDays');
+          for (const server of ['CN', 'US', 'JP', 'KR']) {
+            if (!Array.isArray(active.servers?.[server])) throw new Error(`Missing active-stage server: ${server}`);
+            for (const stage of active.servers[server]) {
+              if (!stage.stageId || !Number.isFinite(stage.start) || !Number.isFinite(stage.end)) {
+                throw new Error(`Invalid active-stage record for ${server}`);
+              }
+            }
+          }
+
+          console.log(`Validated drops: ${drops.stageCount} stages / ${drops.recordCount} records`);
+          console.log(`Validated active candidates: ${active.totalStageCount} stages`);
           NODE
 
       - name: Commit source data changes
@@ -66,20 +84,25 @@ jobs:
           token: ${{ secrets.MASTER_DATA_REPO_TOKEN }}
           path: master-data-file
 
-      - name: Publish CN distribution data to master-data-file
+      - name: Publish distribution data to master-data-file
         run: |
           install -D \
             data/distribution/penguin_cn_drop_data.json \
             master-data-file/arknights-data/stage/penguin_cn_drop_data.json
+          install -D \
+            data/distribution/penguin_active_stages.json \
+            master-data-file/arknights-data/stage/penguin_active_stages.json
 
           cd master-data-file
           git config user.email "an.manager.tool@gmail.com"
           git config user.name "ArknightsTool-MAN"
-          git add arknights-data/stage/penguin_cn_drop_data.json
+          git add \
+            arknights-data/stage/penguin_cn_drop_data.json \
+            arknights-data/stage/penguin_active_stages.json
 
           if git diff --staged --quiet; then
             echo "No distribution data changes to publish"
           else
-            git commit -m "Update Penguin CN drop data - $(date +'%Y-%m-%d %H:%M:%S')"
+            git commit -m "Update Penguin stage data - $(date +'%Y-%m-%d %H:%M:%S')"
             git push origin main
           fi
